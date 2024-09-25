@@ -4,4 +4,4 @@ A data visualizer module that creates different charts in canvas elements. For t
 
 ## Class Diagram
 
-[classDiagram](./img/1DV610_L2_ClassDiagram.png)
+![classDiagram](./img/1DV610_L2_ClassDiagram.png)

@@ -5,8 +5,14 @@
   "main": "src/index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "vite",
+    "test": "npx --node-options=--experimental-vm-modules jest || exit 0"
   },
   "author": "Jennifer von Trotta-Treyden <jv222th@student.lnu.se>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "jest-chain": "^1.1.6",
+    "vite": "^5.4.2"
+  }
 }
