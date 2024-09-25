@@ -1,0 +1,12 @@
+{
+  "name": "data_visualizer",
+  "version": "1.0.0",
+  "description": "Module that creates canvas elements visualizing data.",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jennifer von Trotta-Treyden <jv222th@student.lnu.se>",
+  "license": "MIT"
+}
