@@ -42,19 +42,43 @@ export class DataVisualizer {
   #isOptionsCorrect (options) {
     const { color, width, height } = options
 
-    if (!/blue|green|red|yellow/.test(color)) {
+    if (!this.#isColorCorrectTypeAndValue(color)) {
       throw this.#errorHandler.createErrorObject('#isOptionsCorrect: That color theme does not exist, choose: blue, green, red or yellow', 400)
     }
 
-    if (typeof width !== 'string' || !/^[1-9]\d*$/.test(width)) {
+    if (!this.#isWidthCorrectTypeAndValue(width)) {
       throw this.#errorHandler.createErrorObject('#isOptionsCorrect: The width is not correctly formatted or missing, please provide a string with integers not starting with 0', 400)
     }
 
-    if (typeof height !== 'string' || !/^[1-9]\d*$/.test(height)) {
+    if (!this.#isHeigthCorrectTypeAndValue(height)) {
       throw this.#errorHandler.createErrorObject('#isOptionsCorrect: The height is not correctly formatted or missing, please provide a string with integers not starting with 0', 400)
     }
 
     return true
+  }
+
+  #isColorCorrectTypeAndValue (color) {
+    if (typeof color === 'string' && /blue|green|red|yellow/.test(color)) {
+      return true
+    } else {
+      return false
+    }
+  }
+
+  #isWidthCorrectTypeAndValue (width) {
+    if (typeof width === 'string' && /^[1-9]\d*$/.test(width)) {
+      return true
+    } else {
+      return false
+    }
+  }
+
+  #isHeigthCorrectTypeAndValue (height) {
+    if (typeof height === 'string' && /^[1-9]\d*$/.test(height)) {
+      return true
+    } else {
+      return false
+    }
   }
 
   /**

@@ -14,9 +14,9 @@ const errorHandler = new ErrorHandler()
 /*------------------Testing the createErrorObject method------------------*/
 const ERROR_CREATION_TEST_CASES = [
   { message: 'test error message', errorCode: 403 },
-  { message: 12345, errorCode: '433' },
+  { message: 12345, errorCode: 433 },
   { message: 'test error message', errorCode: '123' },
-  { message: 'test error message', errorCode: 0o23 },
+  { message: 'test error message', errorCode: 'test' },
   {}
 ]
 

@@ -7,8 +7,6 @@
  */
 
 export class ErrorHandler {
-  constructor () {}
-
   createErrorObject (message, errorCode) {
     const error = new Error()
 
