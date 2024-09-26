@@ -7,5 +7,21 @@
  */
 
 export class ErrorHandler {
+  constructor () {}
 
+  createErrorObject (message, errorCode) {
+    const error = new Error()
+
+    if (message && typeof message === 'string') {
+      error.message = message
+    } else {
+      error.message = undefined
+    }
+    
+    if (errorCode && typeof errorCode === 'number') {
+      error.status = errorCode
+    }
+
+    return error
+  }
 }
