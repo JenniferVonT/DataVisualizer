@@ -70,7 +70,7 @@ error message for color = `#isOptionsCorrect: That color theme does not exist, c
 
 ### `createLineChart(Object)` Automatic Tests
 
-Also tests the private method `#createChart(String, Object)` that also takes the global options for the class.
+Also tests the private method `#createChart(String, Object)` that also inserts the global options for the class.
 | Test Case | Options | DataPoints | Expected  | Status |
 |-----------|---------|------------|-----------|--------|
 |    1      |   ✅    |    none    | return type = LineChart |   ✅   |
@@ -80,7 +80,7 @@ Also tests the private method `#createChart(String, Object)` that also takes the
 
 ### `createColumnChart(Object)` Automatic Tests
 
-Also tests the private method `#createChart(String, Object)` that also takes the global options for the class.
+Also tests the private method `#createChart(String, Object)` that also inserts the global options for the class.
 | Test Case | Options | DataPoints | Expected  | Status |
 |-----------|---------|------------|-----------|--------|
 |    1      |   ✅    |    none    | return type = ColumnChart |   ✅   |
@@ -90,7 +90,7 @@ Also tests the private method `#createChart(String, Object)` that also takes the
 
 ### `createPieChart(Object)` Automatic Tests
 
-Also tests the private method `#createChart(String, Object)` that also takes the global options for the class.
+Also tests the private method `#createChart(String, Object)` that also inserts the global options for the class.
 | Test Case | Options | DataPoints | Expected  | Status |
 |-----------|---------|------------|-----------|--------|
 |    1      |   ✅    |    none    | return type = PieChart |   ✅   |

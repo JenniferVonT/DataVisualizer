@@ -7,8 +7,9 @@
  */
 
 import { Chart } from './chart.js'
-import { ErrorHandler } from '../errorHandler.js'
 
 export class PieChart extends Chart {
   constructor (globalOptions, dataPoints) { super() }
+
+  _buildChart() {}
 }
