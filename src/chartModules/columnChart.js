@@ -9,6 +9,6 @@
 import { Chart } from './chart.js'
 import { ErrorHandler } from '../errorHandler.js'
 
-export class columnChart extends Chart {
-
+export class ColumnChart extends Chart {
+  constructor (globalOptions, dataPoints) { super() }
 }

@@ -7,6 +7,9 @@
  */
 
 import { ErrorHandler } from './errorHandler.js'
+import { ColumnChart } from './chartModules/columnChart.js'
+import { LineChart } from './chartModules/lineChart.js'
+import { PieChart } from './chartModules/pieChart.js'
 
 export class DataVisualizer {
   #globalOptions
@@ -82,20 +85,62 @@ export class DataVisualizer {
   }
 
   /**
-   * @param {Object} dataPoints - { key: intValue } can contain multiple data points in the same object.
+   * @param {Object} [dataPoints] - Optional. An object containing data points in the format { key: intValue, ... }. Can contain multiple data points in the same object.
+   * @returns {LineChart}
    */
-  createLineChart (dataPoints) {}
+  createLineChart (dataPoints) {
+    try {
+      return this.#createChart('line', dataPoints)
+    } catch (error) {
+      this.#errorHandler.consoleError(error)
+    }
+  }
 
   /**
-   * @param {Object} dataPoints - { key: intValue } can contain multiple data points in the same object.
+   * @param {Object} [dataPoints] - Optional. An object containing data points in the format { key: intValue, ... }. Can contain multiple data points in the same object.
+   * @returns {ColumnChart}
    */
-  createColumnChart (dataPoints) {}
+  createColumnChart (dataPoints) {
+    try {
+      return this.#createChart('column', dataPoints)
+    } catch (error) {
+      this.#errorHandler.consoleError(error)
+    }
+  }
 
   /**
-   * @param {Object} dataPoints - { key: intValue } can contain multiple data points in the same object.
+   * @param {Object} [dataPoints] - Optional. An object containing data points in the format { key: intValue, ... }. Can contain multiple data points in the same object.
+   * @returns {PieChart}
    */
-  createPieChart (dataPoints) {}
+  createPieChart (dataPoints) {
+    try {
+      return this.#createChart('pie', dataPoints)
+    } catch (error) {
+      this.#errorHandler.consoleError(error)
+    }
+  }
 
-  #insertGlobalOptionsInChart () {}
+  #createChart (typeofChart, dataPoints) {
+    let chart
 
+    try {
+      switch (typeofChart.toLowerCase()) {
+        case 'line':
+          chart = new LineChart(this.#globalOptions, dataPoints)
+          break
+        case 'pie':
+          chart = new PieChart(this.#globalOptions, dataPoints)
+          break
+        case 'column':
+          chart = new ColumnChart(this.#globalOptions, dataPoints)
+          break
+        default:
+          throw this.#errorHandler.createErrorObject('Chart type does not exist.', 400)
+      }
+
+      return chart
+    } catch (error) {
+      this.#errorHandler.consoleError(error)          
+    }
+  }
 }

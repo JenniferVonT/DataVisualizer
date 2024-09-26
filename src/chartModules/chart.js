@@ -9,5 +9,5 @@
 import { ErrorHandler } from '../errorHandler.js'
 
 export class Chart {
-
+  constructor (globalOptions, dataPoints) {}
 }

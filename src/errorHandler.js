@@ -7,6 +7,11 @@
  */
 
 export class ErrorHandler {
+/**
+ * @param {string} message
+ * @param {number} errorCode
+ * @returns {Error}
+ */
   createErrorObject (message, errorCode) {
     const error = new Error()
 
@@ -23,6 +28,9 @@ export class ErrorHandler {
     return error
   }
 
+  /**
+   * @param {Error} errorObject
+   */
   consoleError (errorObject) {
     const { message, status } = errorObject
 

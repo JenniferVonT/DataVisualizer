@@ -6,15 +6,16 @@
  * @version 1.0.0
  */
 
+import { ColumnChart } from '../src/chartModules/columnChart.js'
+import { LineChart } from '../src/chartModules/lineChart.js'
+import { PieChart } from '../src/chartModules/pieChart.js'
 import { DataVisualizer } from '../src/dataVisualizer.js'
 import { jest } from '@jest/globals'
 
 const dataVisualizer = new DataVisualizer()
 
-const createColumnChart = dataVisualizer.createColumnChart.bind(dataVisualizer)
-const createLineChart = dataVisualizer.createLineChart.bind(dataVisualizer)
-const createPieChart = dataVisualizer.createPieChart.bind(dataVisualizer)
-
+const TEST_SINGLE_DATAPOINT = { profit: 25000 }
+const TEST_MULTIPLE_DATAPOINS = { elderly: 15, adults: 55, children: 25 }
 
 /*------------------Testing the setGlobalOptions method------------------*/
 const setGlobalOptions = dataVisualizer.setGlobalOptions.bind(dataVisualizer)
@@ -72,5 +73,69 @@ describe('setGlobalOptions: ', () => {
           expect(checkOnConsole).not.toHaveBeenCalled()
         }
     })
+  })
+})
+
+/*------------------Testing the createLineChart method------------------*/
+const createLineChart = dataVisualizer.createLineChart.bind(dataVisualizer)
+const globalOptions = { color: 'blue', width: '300', height: '200' }
+
+describe('createLineChart: ', () => {
+  const lineChartWithoutDataPoints = createLineChart(globalOptions)
+  const lineChartWithSingleDataPoint = createLineChart(globalOptions, TEST_SINGLE_DATAPOINT)
+  const lineChartWithMultipleDataPoints = createLineChart(globalOptions, TEST_MULTIPLE_DATAPOINS)
+
+  test('Test case 1: No data points - test return type', () => {
+    expect(lineChartWithoutDataPoints).toBeInstanceOf(LineChart)
+  })
+
+  test('Test case 2: Single data point - test return type', () => {
+    expect(lineChartWithSingleDataPoint).toBeInstanceOf(LineChart)
+  })
+
+  test('Test case 3: Multiple data points - test return type', () => {
+    expect(lineChartWithMultipleDataPoints).toBeInstanceOf(LineChart)
+  })
+})
+
+/*------------------Testing the createColumnChart method------------------*/
+const createColumnChart = dataVisualizer.createColumnChart.bind(dataVisualizer)
+
+describe('createColumnChart: ', () => {
+  const columnChartWithoutDataPoints = createColumnChart(globalOptions)
+  const columnChartWithSingleDataPoint = createColumnChart(globalOptions, TEST_SINGLE_DATAPOINT)
+  const columnChartWithMultipleDataPoints = createColumnChart(globalOptions, TEST_MULTIPLE_DATAPOINS)
+
+  test('Test case 1: No data points - test return type', () => {
+    expect(columnChartWithoutDataPoints).toBeInstanceOf(ColumnChart)
+  })
+
+  test('Test case 2: Single data point - test return type', () => {
+    expect(columnChartWithSingleDataPoint).toBeInstanceOf(ColumnChart)
+  })
+
+  test('Test case 3: Multiple data points - test return type', () => {
+    expect(columnChartWithMultipleDataPoints).toBeInstanceOf(ColumnChart)
+  })
+})
+
+/*------------------Testing the createPieChart method------------------*/
+const createPieChart = dataVisualizer.createPieChart.bind(dataVisualizer)
+
+describe('createColumnChart: ', () => {
+  const pieChartWithoutDataPoints = createPieChart(globalOptions)
+  const pieChartWithSingleDataPoint = createPieChart(globalOptions, TEST_SINGLE_DATAPOINT)
+  const pieChartWithMultipleDataPoints = createPieChart(globalOptions, TEST_MULTIPLE_DATAPOINS)
+
+  test('Test case 1: No data points - test return type', () => {
+    expect(pieChartWithoutDataPoints).toBeInstanceOf(PieChart)
+  })
+
+  test('Test case 2: Single data point - test return type', () => {
+    expect(pieChartWithSingleDataPoint).toBeInstanceOf(PieChart)
+  })
+
+  test('Test case 3: Multiple data points - test return type', () => {
+    expect(pieChartWithMultipleDataPoints).toBeInstanceOf(PieChart)
   })
 })

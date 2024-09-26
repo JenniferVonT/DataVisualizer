@@ -1,8 +1,10 @@
 # Test Report
 
 This report documents all the tests for this module/package.
-The automatic tests are made using the `jest` framework.
-The semi automatic/manual testing is made on a local server on the client/in the browser using html and js
+
+- The automatic tests are made using the `jest` framework.
+
+- The semi automatic/manual testing is made on a local server on the client/in the browser using html and js
 
 ## ErrorHandler Tests
 
@@ -64,3 +66,34 @@ error message for color = `#isOptionsCorrect: That color theme does not exist, c
 | 26        |        | test   |        | `error message for color`  |   ✅   |
 | 27        | red    | 100    | 100    | `error message for color`  |   ✅   |
 | 28        |        |        |        | `error message for color`  |   ✅   |
+
+
+### `createLineChart(Object)` Automatic Tests
+
+Also tests the private method `#createChart(String, Object)` that also takes the global options for the class.
+| Test Case | Options | DataPoints | Expected  | Status |
+|-----------|---------|------------|-----------|--------|
+|    1      |   ✅    |    none    | return type = LineChart |   ✅   |
+|    2      |   ✅    |    one     | return type = LineChart |   ✅   |
+|    3      |   ✅    |  multiple  | return type = LineChart |   ✅   |
+
+
+### `createColumnChart(Object)` Automatic Tests
+
+Also tests the private method `#createChart(String, Object)` that also takes the global options for the class.
+| Test Case | Options | DataPoints | Expected  | Status |
+|-----------|---------|------------|-----------|--------|
+|    1      |   ✅    |    none    | return type = ColumnChart |   ✅   |
+|    2      |   ✅    |    one     | return type = ColumnChart |   ✅   |
+|    3      |   ✅    |  multiple  | return type = ColumnChart |   ✅   |
+
+
+### `createPieChart(Object)` Automatic Tests
+
+Also tests the private method `#createChart(String, Object)` that also takes the global options for the class.
+| Test Case | Options | DataPoints | Expected  | Status |
+|-----------|---------|------------|-----------|--------|
+|    1      |   ✅    |    none    | return type = PieChart |   ✅   |
+|    2      |   ✅    |    one     | return type = PieChart |   ✅   |
+|    3      |   ✅    |  multiple  | return type = PieChart |   ✅   |
+
