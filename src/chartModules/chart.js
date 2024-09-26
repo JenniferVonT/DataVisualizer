@@ -74,7 +74,6 @@ export class Chart {
    */
   setColorTheme (color) {}
 
-
   /**
    * @param {String} key 
    * @param {Number} value 
