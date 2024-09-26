@@ -58,7 +58,7 @@ const consoleError = errorHandler.consoleError.bind(errorHandler)
 describe('consoleError: ', () => {
   CONSOLE_ERROR_TEST_CASES.forEach((errorObject, index) => {
     test(`Test case ${index + 1}: message = ${errorObject.message}, errorCode = ${errorObject.status}`, () => {
-      const checkTheConsole = jest.spyOn(console, 'error')
+      const checkTheConsole = jest.spyOn(console, 'error').mockImplementation(() => {})
 
       consoleError(errorObject)
 

@@ -13,6 +13,7 @@ export class DataVisualizer {
   #errorHandler
 
   constructor () {
+    // Set a standard to use if no options are set.
     this.#globalOptions = {
       color: 'blue',
       width: '300',
@@ -23,13 +24,18 @@ export class DataVisualizer {
   }
 
   /**
-   * All the size options are in pixels.
+   * Sets the global options used when creating charts.
+   * Width and heigth are measured in pixels.
    *
-   * @param {Object} options - { color: 'blue/green/red/yellow', width: '', height: '' }
+   * @param {Object} options - { color: 'blue/green/red/yellow', width: '123', height: '123' }
    */
   setGlobalOptions (options) {
-    if (this.#isOptionsCorrect(options)) {
-      this.#globalOptions = options
+    try {
+      if (this.#isOptionsCorrect(options)) {
+        this.#globalOptions = options
+      }
+    } catch (error) {
+      this.#errorHandler.consoleError(error)
     }
   }
 
@@ -40,12 +46,12 @@ export class DataVisualizer {
       throw this.#errorHandler.createErrorObject('#isOptionsCorrect: That color theme does not exist, choose: blue, green, red or yellow', 400)
     }
 
-    if (!/^[1-9]\d*$/.test(width)) {
-      throw this.#errorHandler.createErrorObject()
+    if (typeof width !== 'string' || !/^[1-9]\d*$/.test(width)) {
+      throw this.#errorHandler.createErrorObject('#isOptionsCorrect: The width is not correctly formatted or missing, please provide a string with integers not starting with 0', 400)
     }
 
-    if (!/^[1-9]\d*$/.test(height)) {
-      throw this.#errorHandler.createErrorObject()
+    if (typeof height !== 'string' || !/^[1-9]\d*$/.test(height)) {
+      throw this.#errorHandler.createErrorObject('#isOptionsCorrect: The height is not correctly formatted or missing, please provide a string with integers not starting with 0', 400)
     }
 
     return true
