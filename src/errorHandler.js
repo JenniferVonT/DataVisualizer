@@ -24,4 +24,18 @@ export class ErrorHandler {
 
     return error
   }
+
+  consoleError (errorObject) {
+    const { message, status } = errorObject
+
+    if (message && status) {
+      console.error(`MESSAGE: ${message}, STATUS: ${status}`)
+    } else if (message) {
+      console.error(`MESSAGE: ${message}`)
+    } else if (status) {
+      console.error(`STATUS: ${status}`)
+    } else {
+      console.error('There was an undefined error')
+    }
+  }
 }

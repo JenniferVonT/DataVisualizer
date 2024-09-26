@@ -10,6 +10,7 @@ import { ErrorHandler } from './errorHandler.js'
 
 export class DataVisualizer {
   #globalOptions
+  #errorHandler
 
   constructor () {
     this.#globalOptions = {
@@ -17,6 +18,8 @@ export class DataVisualizer {
       width: '300',
       height: '200'
     }
+
+    this.#errorHandler = new ErrorHandler()
   }
 
   /**
@@ -31,20 +34,18 @@ export class DataVisualizer {
   }
 
   #isOptionsCorrect (options) {
-    const error = new Error()
-
     const { color, width, height } = options
 
-    if (/blue|green|red|yellow/.test(color)) {
-    } else {
+    if (!/blue|green|red|yellow/.test(color)) {
+      throw this.#errorHandler.createErrorObject('#isOptionsCorrect: That color theme does not exist, choose: blue, green, red or yellow', 400)
     }
 
-    if (/^[1-9]\d*$/.test(width)) {
-    } else {
+    if (!/^[1-9]\d*$/.test(width)) {
+      throw this.#errorHandler.createErrorObject()
     }
 
-    if (/^[1-9]\d*$/.test(height)) {
-    } else {
+    if (!/^[1-9]\d*$/.test(height)) {
+      throw this.#errorHandler.createErrorObject()
     }
 
     return true
