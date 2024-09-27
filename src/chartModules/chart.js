@@ -13,6 +13,9 @@ export class Chart {
   _dataPoints
   _globalOptions
   _dataPointLimit
+  _canvasElement
+  #maxHeightAndWidth
+  #minHeightAndWidth
 
   constructor (globalOptions, dataPoints) {
 
@@ -20,6 +23,10 @@ export class Chart {
     this._dataPoints = {}
     this._globalOptions = {}
     this._dataPointLimit = 6
+    this._canvasElement
+
+    this.#maxHeightAndWidth = 2000
+    this.#minHeightAndWidth = 20
 
     this.#saveDataPoints(dataPoints)
     this.#saveGlobalOptions(globalOptions)
@@ -166,12 +173,27 @@ export class Chart {
   /**
    * @param {Number} height - pixels.
    */
-  changeHeightTo (height) {}
+  setHeightTo (height) {
+    if (this.#isHeightOrWidthValid(height)) {
+      this._globalOptions.height = height
+    }
+  }
 
   /**
    * @param {Number} width - pixels.
    */
-  changeWidthTo (width) {}
+  setWidthTo (width) {
+    if (this.#isHeightOrWidthValid(width)) {
+      this._globalOptions.width = width
+    }
+  }
+
+  #isHeightOrWidthValid (value) {
+    if (typeof value === 'number' && value >= this.#minHeightAndWidth && value <= this.#maxHeightAndWidth) {
+      return true
+    }
+    return false
+  }
 
   clearChart () {}
 
@@ -183,5 +205,6 @@ export class Chart {
   getDataPoints () {}
 
   _updateChart () {}
+
   _buildChart () {}
 }

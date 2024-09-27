@@ -129,3 +129,44 @@ describe('deleteDataPoint: ', () => {
   })
 })
 
+/*-----------Testing the setHeightTo and setWidthTo methods in the Chart class-----------*/
+const setHeightTo = chart.setHeightTo.bind(chart)
+const setWidthTo = chart.setWidthTo.bind(chart)
+
+const HEIGHT_WIDTH_TEST_CASES = [
+  { input: 100, expected: 'pass' },
+  { input: 350, expected: 'pass' },
+  { input: 20, expected: 'pass' },
+  { input: 2000, expected: 'pass' },
+  { input: -234, expected: 'nothing' },
+  { input: 2350, expected: 'nothing' }
+]
+
+
+describe('setHeightTo: ', () => { testHeightAndWidth('height') })
+describe('setWidthTo: ', () => { testHeightAndWidth('width') })
+
+function testHeightAndWidth (type) {
+  HEIGHT_WIDTH_TEST_CASES.forEach(({ input, expected }, index) => {
+    test(`Test case ${index + 1}: input = ${input}`, () => {
+
+      if (type === 'height') {
+        setHeightTo(input)
+
+        if (expected === 'pass') {
+          expect(chart._globalOptions.height).toBe(input)
+        } else {
+          expect(chart._globalOptions.height).not.toBe(input)
+        }
+      } else if (type === 'width') {
+        setWidthTo(input)
+
+        if (expected === 'pass') {
+          expect(chart._globalOptions.width).toBe(input)
+        } else {
+          expect(chart._globalOptions.width).not.toBe(input)
+        }
+      }
+    })
+  })  
+}

@@ -114,7 +114,9 @@ Also tests the private method `#isColorValidType(str)`
 |     6     | 'purple' | `error message for color`               |   ✅   |
 |     7     |   1234   | `error message for color`               |   ✅   |
 
-### `insertDataPoint(str, int)`
+
+### `insertDataPoint(str, int)` Automatic Tests
+
 | Test Case |      Input     |             Expected            | Status |
 |-----------|----------------|---------------------------------|--------|
 |     1     | 'cats', 235    | 'pass': _dataPoints.cats = 235  |   ✅   |
@@ -124,7 +126,7 @@ Also tests the private method `#isColorValidType(str)`
 |     5     | 'test', 'test' |  `error message data validity`  |   ✅   |
 
 
-### `updateDataPoint(str, int)`
+### `updateDataPoint(str, int)` Automatic Tests
 
 first insert a data point then update it.
 
@@ -136,7 +138,8 @@ first insert a data point then update it.
 |     4     | '1234', '100'  |      -       | `error message data validity`  |   ✅   |
 |     5     | 'test', 'test' |      -       | `error message data validity`  |   ✅   |
 
-### `deleteDataPoint(str, int)`
+
+### `deleteDataPoint(str, int)` Automatic Tests
 
 first insert a data point then delete it.
 
