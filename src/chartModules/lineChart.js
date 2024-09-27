@@ -9,7 +9,13 @@
 import { Chart } from './chart.js'
 
 export class LineChart extends Chart {
-  constructor (globalOptions, dataPoints) { super() }
+  _dataPointLimit
+
+  constructor (globalOptions, dataPoints) {
+    super(globalOptions, dataPoints) 
+
+    this._dataPointLimit = 10
+  }
 
   _buildChart() {}
 }

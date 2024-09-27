@@ -1,30 +1,28 @@
 # Test Report
 
 This report documents all the tests for this module/package.
-
-- The automatic tests are made using the `jest` framework.
-
-- The semi automatic/manual testing is made on a local server on the client/in the browser using html and js
+The automatic tests are made using the `jest` framework.
+The semi automatic/manual testing is made on a local server on the client/in the browser using html and js
 
 ## ErrorHandler Tests
 
 ### `createErrorObject(string, string)` Automatic Tests
-| Test Case | Message | Error Code | Expected | Status |
-|-----------|---------|------------|----------|--------|
-| 1 | test error message | 403 | Instance of Error with message 'test error message' and status 403 | ✅ |
-| 2 | 12345  | 433  | Instance of Error with message undefined; status as 433 | ✅ |
-| 3 | test error message | '123' | Instance of Error with message 'test error message'; status as undefined | ✅ |
-| 4 | test error message | 'test' | Instance of Error with message 'test error message'; status as undefined | ✅ |
-| 5 | {} | undefined | Instance of Error with message undefined and status undefined | ✅ |
+| Test Case |       Message      | Error Code |                                 Expected                                 | Status |
+|-----------|--------------------|------------|--------------------------------------------------------------------------|--------|
+|     1     | test error message |    403     | Instance of Error with message 'test error message' and status 403       |   ✅   |
+|     2     | 12345              |    433     | Instance of Error with message undefined; status as 433                  |   ✅   |
+|     3     | test error message |   '123'    | Instance of Error with message 'test error message'; status as undefined |   ✅   |
+|     4     | test error message |   'test'   | Instance of Error with message 'test error message'; status as undefined |   ✅   |
+|     5     | {}                 | undefined  | Instance of Error with message undefined and status undefined            |   ✅   |
 
 ### `consoleError(Error)` Automatic Tests
-| Test Case | Message | Error Code | Console Output | Status |
-|-----------|---------|------------|----------------|--------|
-| 1 | test error message | 403 | 'MESSAGE: test error message, STATUS: 403' | ✅ |
-| 2 | 12345  | 433  | 'STATUS: 433' | ✅ |
-| 3 | test error message | '123' | 'MESSAGE: test error message' | ✅ |
-| 4 | test error message | 'test' | 'MESSAGE: test error message' | ✅ |
-| 5 | {} | undefined | - | ✅ |
+| Test Case |      Message       | Error Code |                Console Output              | Status |
+|-----------|--------------------|------------|--------------------------------------------|--------|
+|     1     | test error message |    403     | 'MESSAGE: test error message, STATUS: 403' |   ✅   |
+|     2     |       12345        |    433     | 'STATUS: 433'                              |   ✅   |
+|     3     | test error message |   '123'    | 'MESSAGE: test error message'              |   ✅   |
+|     4     | test error message |   'test'   | 'MESSAGE: test error message'              |   ✅   |
+|     5     |         {}         | undefined  | -                                          |   ✅   |
 
 
 ## DataVisualizer Tests
@@ -70,9 +68,9 @@ error message for color = `#isOptionsCorrect: That color theme does not exist, c
 
 ### `createLineChart(Object)` Automatic Tests
 
-Also tests the private method `#createChart(String, Object)` that also inserts the global options for the class.
-| Test Case | Options | DataPoints | Expected  | Status |
-|-----------|---------|------------|-----------|--------|
+Also tests the private method `#createChart(String, Object)` that also takes the global options for the class.
+| Test Case | Options | DataPoints |         Expected        | Status |
+|-----------|---------|------------|-------------------------|--------|
 |    1      |   ✅    |    none    | return type = LineChart |   ✅   |
 |    2      |   ✅    |    one     | return type = LineChart |   ✅   |
 |    3      |   ✅    |  multiple  | return type = LineChart |   ✅   |
@@ -80,9 +78,9 @@ Also tests the private method `#createChart(String, Object)` that also inserts t
 
 ### `createColumnChart(Object)` Automatic Tests
 
-Also tests the private method `#createChart(String, Object)` that also inserts the global options for the class.
-| Test Case | Options | DataPoints | Expected  | Status |
-|-----------|---------|------------|-----------|--------|
+Also tests the private method `#createChart(String, Object)` that also takes the global options for the class.
+| Test Case | Options | DataPoints |         Expected          | Status |
+|-----------|---------|------------|---------------------------|--------|
 |    1      |   ✅    |    none    | return type = ColumnChart |   ✅   |
 |    2      |   ✅    |    one     | return type = ColumnChart |   ✅   |
 |    3      |   ✅    |  multiple  | return type = ColumnChart |   ✅   |
@@ -90,10 +88,26 @@ Also tests the private method `#createChart(String, Object)` that also inserts t
 
 ### `createPieChart(Object)` Automatic Tests
 
-Also tests the private method `#createChart(String, Object)` that also inserts the global options for the class.
-| Test Case | Options | DataPoints | Expected  | Status |
-|-----------|---------|------------|-----------|--------|
+Also tests the private method `#createChart(String, Object)` that also takes the global options for the class.
+| Test Case | Options | DataPoints |        Expected        | Status |
+|-----------|---------|------------|------------------------|--------|
 |    1      |   ✅    |    none    | return type = PieChart |   ✅   |
 |    2      |   ✅    |    one     | return type = PieChart |   ✅   |
 |    3      |   ✅    |  multiple  | return type = PieChart |   ✅   |
 
+## Chart Tests
+
+### `setColorTheme(str)` Automatic Tests
+
+error message for color = `setColorTheme: That color theme does not exist, choose: blue, green, red or yellow`
+
+Also tests the private method `#isColorValidType(str)`
+| Test Case |   Input  |                 Expected                | Status |
+|-----------|----------|-----------------------------------------|--------|
+|     1     |  'blue'  | 'pass': _globalOptions.color = 'blue'   |   ✅   |
+|     2     | 'green'  | 'pass': _globalOptions.color = 'green'  |   ✅   |
+|     3     |  'red'   | 'pass': _globalOptions.color = 'red'    |   ✅   |
+|     4     | 'yellow' | 'pass': _globalOptions.color = 'yellow' |   ✅   |
+|     5     | 'orange' | `error message for color`               |   ✅   |
+|     6     | 'purple' | `error message for color`               |   ✅   |
+|     7     |   1234   | `error message for color`               |   ✅   |

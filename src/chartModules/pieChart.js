@@ -9,7 +9,9 @@
 import { Chart } from './chart.js'
 
 export class PieChart extends Chart {
-  constructor (globalOptions, dataPoints) { super() }
+  constructor (globalOptions, dataPoints) {
+    super(globalOptions, dataPoints) 
+  }
 
   _buildChart() {}
 }

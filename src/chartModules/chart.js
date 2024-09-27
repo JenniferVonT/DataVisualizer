@@ -12,12 +12,14 @@ export class Chart {
   _errorHandler
   _dataPoints
   _globalOptions
+  _dataPointLimit
 
   constructor (globalOptions, dataPoints) {
 
     this._errorHandler = new ErrorHandler()
     this._dataPoints = {}
     this._globalOptions = {}
+    this._dataPointLimit = 6
 
     this.#saveDataPoints(dataPoints)
     this.#saveGlobalOptions(globalOptions)
@@ -40,7 +42,7 @@ export class Chart {
 
     for (const [key, dataPoint] of Object.entries(dataPoints)) {
       if (typeof dataPoint !== 'number') {
-        throw this._errorHandler.createErrorObject('One or more datapoint value is not the correct type, it should be a number.', 400)
+        throw this._errorHandler.createErrorObject('One or more datapoint value(s) is not the correct type, it should be a number.', 400)
       }
     }
 
@@ -72,7 +74,23 @@ export class Chart {
   /**
    * @param {String} color
    */
-  setColorTheme (color) {}
+  setColorTheme (color) {
+    try {
+      if (this.#isColorValidType(color)) {
+        this._globalOptions.color = color
+      }
+    } catch (error) {
+      this._errorHandler.consoleError(error)
+    }
+  }
+
+  #isColorValidType (color) {
+    if (typeof color === 'string' && /blue|green|red|yellow/.test(color)) {
+      return true
+    } else {
+      throw this._errorHandler.createErrorObject('setColorTheme: That color theme does not exist, choose: blue, green, red or yellow', 400)
+    }
+  }
 
   /**
    * @param {String} key 
