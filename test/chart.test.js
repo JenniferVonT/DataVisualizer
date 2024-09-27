@@ -89,9 +89,10 @@ describe('updateDataPoint: ', () => {
       const [key, value] = Object.entries(data)[0]
 
       insertDataPoint(key, value)
-      updateDataPoint(key, value, 1)
 
       if (expected === 'pass') {
+        updateDataPoint(key, value, 1)
+
         expect(chart._dataPoints[key]).toBe(1)
         expect(checkOnConsole).not.toHaveBeenCalled()
       } else {

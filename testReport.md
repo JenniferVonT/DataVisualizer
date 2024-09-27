@@ -97,6 +97,8 @@ Also tests the private method `#createChart(String, Object)` that also takes the
 
 ## Chart Tests
 
+error message for data validity = `#isDataPointsValid: One or more datapoint value(s) is not the correct type, it should be a number.`
+
 ### `setColorTheme(str)` Automatic Tests
 
 error message for color = `setColorTheme: That color theme does not exist, choose: blue, green, red or yellow`
@@ -111,3 +113,37 @@ Also tests the private method `#isColorValidType(str)`
 |     5     | 'orange' | `error message for color`               |   ✅   |
 |     6     | 'purple' | `error message for color`               |   ✅   |
 |     7     |   1234   | `error message for color`               |   ✅   |
+
+### `insertDataPoint(str, int)`
+| Test Case |      Input     |             Expected            | Status |
+|-----------|----------------|---------------------------------|--------|
+|     1     | 'cats', 235    | 'pass': _dataPoints.cats = 235  |   ✅   |
+|     2     | 'dogs', 150    | 'pass': _dataPoints.dogs = 150  |   ✅   |
+|     3     | 'birds', 350   | 'pass': _dataPoints.birds = 350 |   ✅   |
+|     4     | '1234', '100'  |  `error message data validity`  |   ✅   |
+|     5     | 'test', 'test' |  `error message data validity`  |   ✅   |
+
+
+### `updateDataPoint(str, int)`
+
+first insert a data point then update it.
+
+| Test Case |   First Input  | Second Input |            Expected            | Status |
+|-----------|----------------|--------------|--------------------------------|--------|
+|     1     | 'cats', 235    | 'cats', 1    | 'pass': _dataPoints.cats = 1   |   ✅   |
+|     2     | 'dogs', 150    | 'dogs', 1    | 'pass': _dataPoints.dogs = 1   |   ✅   |
+|     3     | 'birds', 350   | 'birds', 1   | 'pass': _dataPoints.birds = 1  |   ✅   |
+|     4     | '1234', '100'  |      -       | `error message data validity`  |   ✅   |
+|     5     | 'test', 'test' |      -       | `error message data validity`  |   ✅   |
+
+### `deleteDataPoint(str, int)`
+
+first insert a data point then delete it.
+
+| Test Case |   First Input  | Second Input |                 Expected              | Status |
+|-----------|----------------|--------------|---------------------------------------|--------|
+|     1     | 'cats', 235    | 'cats', 235  | 'pass': _dataPoints.cats = undefined  |   ✅   |
+|     2     | 'dogs', 150    | 'dogs', 150  | 'pass': _dataPoints.dogs = undefined  |   ✅   |
+|     3     | 'birds', 350   | 'birds', 350 | 'pass': _dataPoints.birds = undefined |   ✅   |
+|     4     | '1234', '100'  |      -       |     `error message data validity`     |   ✅   |
+|     5     | 'test', 'test' |      -       |     `error message data validity`     |   ✅   |
