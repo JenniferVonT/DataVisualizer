@@ -176,6 +176,8 @@ export class Chart {
   setHeightTo (height) {
     if (this.#isHeightOrWidthValid(height)) {
       this._globalOptions.height = height
+
+      this._updateChart()
     }
   }
 
@@ -185,6 +187,8 @@ export class Chart {
   setWidthTo (width) {
     if (this.#isHeightOrWidthValid(width)) {
       this._globalOptions.width = width
+
+      this._updateChart()
     }
   }
 
@@ -195,7 +199,11 @@ export class Chart {
     return false
   }
 
-  clearChart () {}
+  clearChart () {
+    this._dataPoints = {}
+
+    this._updateChart()
+  }
 
   /**
    * @returns {HTMLCanvasElement}

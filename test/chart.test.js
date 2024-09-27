@@ -170,3 +170,22 @@ function testHeightAndWidth (type) {
     })
   })  
 }
+
+/*-----------Testing the clearChart method in the Chart class-----------*/
+const clearChart = chart.clearChart.bind(chart)
+
+describe('clearChart: ', () => {
+  DATA_TEST_CASES.forEach(({ data, expected }, index) => {
+    if (expected === 'pass') {
+      const [key, value] = Object.entries(data)[0]
+
+      insertDataPoint(key, value)
+    }
+  })
+
+  expect(chart._dataPoints).not.toEqual({})
+
+  clearChart()
+
+  expect(chart._dataPoints).toEqual({})
+})

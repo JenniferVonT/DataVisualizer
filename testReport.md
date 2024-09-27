@@ -172,3 +172,9 @@ first insert a data point then delete it.
 |     4     |  2000 | 'pass': _globalOptions.width = 2000 |   ✅   |
 |     5     |  -234 |   _globalOptions.width = undefined  |   ✅   |
 |     6     |  2350 |   _globalOptions.width = undefined  |   ✅   |
+
+### `clearChart()`
+
+| Test Case |                 Input                 |          Expected         | Status |
+|-----------|---------------------------------------|---------------------------|--------|
+|     1     | Set multiple data points - then clear | 'pass': _dataPoints = {}  |   ✅   |
