@@ -42,7 +42,7 @@ export class Chart {
 
     for (const [key, dataPoint] of Object.entries(dataPoints)) {
       if (typeof dataPoint !== 'number') {
-        throw this._errorHandler.createErrorObject('One or more datapoint value(s) is not the correct type, it should be a number.', 400)
+        throw this._errorHandler.createErrorObject('#isDataPointsValid: One or more datapoint value(s) is not the correct type, it should be a number.', 400)
       }
     }
 
@@ -78,6 +78,8 @@ export class Chart {
     try {
       if (this.#isColorValidType(color)) {
         this._globalOptions.color = color
+
+        this._updateChart()
       }
     } catch (error) {
       this._errorHandler.consoleError(error)
@@ -96,12 +98,70 @@ export class Chart {
    * @param {String} key 
    * @param {Number} value 
    */
-  insertDataPoint (key, value) {}
+  insertDataPoint (key, value) {
+    try {
+      if (!this.#isDataFull()) {
+        if (this.#isDataPointsValid({ [key]: value }))
+          this._dataPoints[key] = value
+
+          this._updateChart()
+      }
+    } catch (error) {
+      this._errorHandler.consoleError(error)
+    }
+  }
 
   /**
    * @param {String} key 
+   * @param {Number} oldValue
+   * @param {Number} newValue 
    */
-  removeDataPoint (key) {}
+  updateDataPoint (key, oldValue, newValue) {
+    try {
+      if (this.#isDataPointsValid({ [key]: newValue })) {
+        if (this.#isDataPresent(key, oldValue)) {
+          this._dataPoints[key] = newValue
+
+          this._updateChart()
+        }
+      }
+    } catch (error) {
+      this._errorHandler.consoleError(error)
+    }
+  }
+
+  #isDataFull () {
+    if (Object.keys(this._dataPoints).length < this._dataPointLimit) {
+      return false
+    } else {
+      return true
+    }
+  }
+
+  #isDataPresent (key, value) {
+    const dataPointKey = this._dataPoints[key]
+
+    if (dataPointKey && dataPointKey === value) {
+      return true
+    }
+    return false
+  }
+
+  /**
+   * @param {String} key
+   * @param {Number} value
+   */
+  deleteDataPoint (key, value) {
+    try {
+      if (this.#isDataPresent(key, value)) {
+       delete this._dataPoints[key]
+
+       this._updateChart()
+      }
+    } catch (error) {
+      this._errorHandler.consoleError(error)
+    }
+  }
 
   /**
    * @param {Number} height - pixels.
@@ -113,13 +173,15 @@ export class Chart {
    */
   changeWidthTo (width) {}
 
-  clearEntireChart () {}
+  clearChart () {}
 
   /**
    * @returns {HTMLCanvasElement}
    */
   getCanvasElement () {}
 
-  _getDataPoints () {}
+  getDataPoints () {}
+
+  _updateChart () {}
   _buildChart () {}
 }
