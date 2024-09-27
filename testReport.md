@@ -150,3 +150,25 @@ first insert a data point then delete it.
 |     3     | 'birds', 350   | 'birds', 350 | 'pass': _dataPoints.birds = undefined |   ✅   |
 |     4     | '1234', '100'  |      -       |     `error message data validity`     |   ✅   |
 |     5     | 'test', 'test' |      -       |     `error message data validity`     |   ✅   |
+
+### `setWidthTo(int)`
+
+| Test Case | Input |               Expected              | Status |
+|-----------|-------|-------------------------------------|--------|
+|     1     |  100  | 'pass': _globalOptions.width = 100  |   ✅   |
+|     2     |  350  | 'pass': _globalOptions.width = 350  |   ✅   |
+|     3     |  20   | 'pass': _globalOptions.width = 20   |   ✅   |
+|     4     |  2000 | 'pass': _globalOptions.width = 2000 |   ✅   |
+|     5     |  -234 |   _globalOptions.width = undefined  |   ✅   |
+|     6     |  2350 |   _globalOptions.width = undefined  |   ✅   |
+
+### `setHeightTo(int)`
+
+| Test Case | Input |               Expected              | Status |
+|-----------|-------|-------------------------------------|--------|
+|     1     |  100  | 'pass': _globalOptions.width = 100  |   ✅   |
+|     2     |  350  | 'pass': _globalOptions.width = 350  |   ✅   |
+|     3     |  20   | 'pass': _globalOptions.width = 20   |   ✅   |
+|     4     |  2000 | 'pass': _globalOptions.width = 2000 |   ✅   |
+|     5     |  -234 |   _globalOptions.width = undefined  |   ✅   |
+|     6     |  2350 |   _globalOptions.width = undefined  |   ✅   |
