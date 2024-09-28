@@ -10,23 +10,23 @@ import { Chart } from './chart.js'
 
 export class PieChart extends Chart {
   constructor (globalOptions, dataPoints) {
-    super(globalOptions, dataPoints) 
+    super(globalOptions, dataPoints)
+
+    this._canvasElement.classList.add('pieChart')
   }
 
   _drawChart () {
     try {
-      this._drawPieChart(Object.keys(this._dataPoints).length)
+      this._drawPieChart()
     } catch (error) {
       this._errorHandler.consoleError(error)
     }
   }
 
-  _drawPieChart (amountOfDataPoints) {
+  _drawPieChart () {
     try {
       const chart = this._canvasElement.getContext('2d')
       const theme = this._getTheme()
-
-      const maxValue = this._getMaxDataValue()
 
       const chartHeight = this._canvasElement.height
       const chartWidth = this._canvasElement.width
