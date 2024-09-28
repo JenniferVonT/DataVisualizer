@@ -9,12 +9,8 @@
 import { Chart } from './chart.js'
 
 export class ColumnChart extends Chart {
-  _dataPointLimit
-
   constructor (globalOptions, dataPoints) {
     super(globalOptions, dataPoints)
-
-    this._dataPointLimit = 5
   }
 
   _drawChart () {

@@ -3,6 +3,7 @@
  * 
  * @author Jennifer von Trotta-Treyden <jv222th@student.lnu.se>
  * @module test/dataVisualizer.test.js
+ * @jest-environment jsdom
  * @version 1.0.0
  */
 
@@ -14,7 +15,7 @@ import { jest } from '@jest/globals'
 
 const dataVisualizer = new DataVisualizer()
 
-const TEST_SINGLE_DATAPOINT = { profit: 25000 }
+const TEST_SINGLE_DATAPOINT = { profit: 1900 }
 const TEST_MULTIPLE_DATAPOINS = { elderly: 15, adults: 55, children: 25 }
 
 /*------------------Testing the setGlobalOptions method------------------*/

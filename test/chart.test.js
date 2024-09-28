@@ -3,6 +3,7 @@
  * 
  * @author Jennifer von Trotta-Treyden <jv222th@student.lnu.se>
  * @module test/chart.test.js
+ * @jest-environment jsdom
  * @version 1.0.0
  */
 

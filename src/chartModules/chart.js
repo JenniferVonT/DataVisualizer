@@ -38,11 +38,9 @@ export class Chart {
 
   #buildChart() {
     try {
-      console.log('starting building chart...')
       this._insertWidthAndHeight()
 
       if (Object.keys(this._dataPoints).length !== 0) {
-        console.log('starting drawing chart...')
         this._drawChart()        
       }
     } catch (error) {
@@ -250,7 +248,7 @@ export class Chart {
   #updateChart() {
     try {
       this._clearCanvasContext()
-      this._buildChart()
+      this.#buildChart()
     } catch (error) {
       this._errorHandler.consoleError(error)
     }
@@ -295,5 +293,5 @@ export class Chart {
     return this._colorThemes[this._globalOptions.color]
   }
 
-  _drawChart () { console.log('drawChart in the Chart class') }
+  _drawChart () { /* Overridden in sub classes */}
 }
