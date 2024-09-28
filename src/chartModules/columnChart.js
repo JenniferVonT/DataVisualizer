@@ -11,6 +11,8 @@ import { Chart } from './chart.js'
 export class ColumnChart extends Chart {
   constructor (globalOptions, dataPoints) {
     super(globalOptions, dataPoints)
+
+    this._canvasElement.classList.add('columnChart')
   }
 
   _drawChart () {
@@ -22,19 +24,19 @@ export class ColumnChart extends Chart {
       chart.fillRect(0, 0, this._canvasElement.width, this._canvasElement.height)
 
       const amountOfColumns = Object.keys(this._dataPoints).length
-      this.#drawColumns(amountOfColumns)
+      this._drawColumns(amountOfColumns)
     } catch (error) {
       this._errorHandler.consoleError(error)
     }
   }
 
-  #drawColumns (amountOfColumns) {
+  _drawColumns (amountOfColumns) {
     try {
       const chart = this._canvasElement.getContext('2d')
       const theme = this._getTheme()
 
       const columnWidth = this._canvasElement.width / amountOfColumns
-      const maxValue = this.#getMaxDataValue()
+      const maxValue = this._getMaxDataValue() + 5
 
       Object.entries(this._dataPoints).forEach(([ name, data ], index) => {
         const columnHeight = (data / maxValue) * this._canvasElement.height
@@ -64,9 +66,4 @@ export class ColumnChart extends Chart {
       this._errorHandler.consoleError(error)
     }
   }
-
-  #getMaxDataValue () {
-    return Math.max(...Object.values(this._dataPoints))
-  }
-
 }

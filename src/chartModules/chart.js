@@ -18,11 +18,15 @@ export class Chart {
   #maxHeightAndWidth
   #minHeightAndWidth
 
+  /**
+   * @param {Object} globalOptions { color: 'red/green/blue/yellow', width: int, height: int }
+   * @param {Object} dataPoints { key: value, key: value, ... }
+   */
   constructor (globalOptions, dataPoints) {
 
     this._errorHandler = new ErrorHandler()
     this._dataPoints = {}
-    this._globalOptions = {}
+    this._globalOptions = { color: 'blue', width: '300', height: '200' }
     this._canvasElement = document.createElement('canvas')
 
     this.#dataPointLimit = 15
@@ -30,18 +34,19 @@ export class Chart {
     this.#maxHeightAndWidth = 2000
     this.#minHeightAndWidth = 20
 
-    this.#saveDataPoints(dataPoints)
-    this.#saveGlobalOptions(globalOptions)
     this.#createColorThemes()
+    this.#saveGlobalOptions(globalOptions)
+    this.#saveDataPoints(dataPoints)
     this.#buildChart()
   }
 
   #buildChart() {
     try {
       this.#insertWidthAndHeight()
+      this.#clearCanvasContext()
 
       if (Object.keys(this._dataPoints).length !== 0) {
-        this._drawChart()        
+        this._drawChart()
       }
     } catch (error) {
       this._errorHandler.consoleError(error)
@@ -78,24 +83,47 @@ export class Chart {
 
   #saveGlobalOptions (options) {
     if(this.#isOptionsValid(options))  {
-      this._globalOptions = options
+      if (options.color) {
+        this._globalOptions.color = options.color
+      }
+      if (options.width) {
+        this._globalOptions.width = options.width
+      }
+      if (options.height) {
+        this._globalOptions.height = options.height
+      }
     }
   }
 
   #isOptionsValid (options) {
     const validOptions = ['color', 'width', 'height']
-
+    let validState = false
+  
     if (typeof options !== 'object' || options === null) {
-      return false
+      return validState
     }
 
     for (const [option, value] of Object.entries(options)) {
       if (!validOptions.includes(option)) {
-        return false
+        return validState
+      }
+
+      switch (option) {
+        case 'color':
+          if (this.#isColorValidType(value)) { validState = true }
+          break
+        case 'width':
+          if (this.#isHeightOrWidthValid(value)) { validState = true }
+          break
+        case 'height':
+          if (this.#isHeightOrWidthValid(value)) { validState = true }
+          break
+        default:
+          break
       }
     }
 
-    return true
+    return validState
   }
 
   /**
@@ -117,7 +145,7 @@ export class Chart {
     if (typeof color === 'string' && /blue|green|red|yellow/.test(color)) {
       return true
     } else {
-      throw this._errorHandler.createErrorObject('setColorTheme: That color theme does not exist, choose: blue, green, red or yellow', 400)
+      throw this._errorHandler.createErrorObject('#isColorValidType: That color theme does not exist, choose: blue, green, red or yellow', 400)
     }
   }
 
@@ -252,7 +280,7 @@ export class Chart {
   #updateChart() {
     try {
       this.#clearCanvasContext()
-      this.#buildChart()
+      this._drawChart()
     } catch (error) {
       this._errorHandler.consoleError(error)
     }
@@ -291,6 +319,10 @@ export class Chart {
         data: [ '#969600', '#cece00', '#ffff05', '#ffff34', '#ffff6f', '#ffffa3' ]
       }
     }
+  }
+
+  _getMaxDataValue () {
+    return Math.max(...Object.values(this._dataPoints))
   }
 
   _getTheme () {

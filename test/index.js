@@ -23,14 +23,7 @@ const DATA_POINT_TEST_CASES = [ // from 0-10 data points.
 
 const dataVisualizer = new DataVisualizer()
 const documentBody = document.querySelector('body')
-/*
-const chartObj = dataVisualizer.createColumnChart(DATA_POINT_TEST_CASES[10])
-chartObj.setColorTheme('green')
 
-const canvasElement = chartObj.getCanvasElement()
-
-documentBody.append(canvasElement)
-*/
 
 // Create column charts for each test case.
 DATA_POINT_TEST_CASES.forEach((testCase) => {
@@ -41,3 +34,27 @@ DATA_POINT_TEST_CASES.forEach((testCase) => {
 
   documentBody.append(canvasElement)
 })
+
+// Create a line charts.
+DATA_POINT_TEST_CASES.forEach((testCase) => {
+  const lineObj = dataVisualizer.createLineChart(testCase)
+  
+  const lineCanvasElement = lineObj.getCanvasElement()
+  
+  documentBody.append(lineCanvasElement)
+})
+
+/*
+
+const columnChartObj = dataVisualizer.createColumnChart(DATA_POINT_TEST_CASES[10])
+const lineChartObj = dataVisualizer.createLineChart(DATA_POINT_TEST_CASES[10])
+
+// columnChartObj.setColorTheme('green')
+// lineChartObj.setColorTheme('blue')
+
+const columnCanvasElement = columnChartObj.getCanvasElement()
+const lineCanvasElement = lineChartObj.getCanvasElement()
+
+documentBody.append(columnCanvasElement)
+documentBody.append(lineCanvasElement)
+*/

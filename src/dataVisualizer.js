@@ -17,11 +17,7 @@ export class DataVisualizer {
 
   constructor () {
     // Set a standard to use if no options are set.
-    this.#globalOptions = {
-      color: 'blue',
-      width: '300',
-      height: '200'
-    }
+    this.#globalOptions = {}
 
     this.#errorHandler = new ErrorHandler()
   }

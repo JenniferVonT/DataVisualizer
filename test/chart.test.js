@@ -27,7 +27,7 @@ const DATA_TEST_CASES = [
 /*-----------Testing the setColorTheme method in the Chart class-----------*/
 const setColorTheme = chart.setColorTheme.bind(chart)
 
-const ERROR_MESSAGE_COLOR = 'setColorTheme: That color theme does not exist, choose: blue, green, red or yellow'
+const ERROR_MESSAGE_COLOR = '#isColorValidType: That color theme does not exist, choose: blue, green, red or yellow'
 const SET_COLOR_TEST_CASES = [
   { color: 'blue', expected: 'pass' },
   { color: 'green', expected: 'pass' },
