@@ -188,3 +188,24 @@ first insert a data point then delete it.
 | Test Case |                      Input                      |                                          Expected                                         | Status |
 |-----------|-------------------------------------------------|-------------------------------------------------------------------------------------------|--------|
 |     1     | Set multiple data points - then call the method | The return object to be an Object, the corresponding data length that has been set before |   ✅   |
+
+## Semi automatic/manual tests on the client.
+In the test directory there is a index.html and index.js file present, 
+these are there to test the module in the browser on the client by running it on a local server using vite.
+
+### ColmunChart
+The test is made in a loop with 10 different amounts of data point inputs:
+- Tested by instantiating the ColumnChart class and binding it to a constant.
+- Setting the color theme to green.
+- Inserting it into the DOM.
+
+### LineChart
+The test is made in a loop with 10 different amounts of data point inputs:
+- Tested by instantiating the LineChart class and binding it to a constant.
+- Inserting it into the DOM.
+
+### PieChart
+The test is made in a loop with 10 different amounts of data point inputs:
+- Tested by instantiating the PieChart class and binding it to a constant.
+- Setting the color theme to yellow.
+- Inserting it into the DOM.

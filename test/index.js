@@ -34,7 +34,7 @@ DATA_POINT_TEST_CASES.forEach((testCase) => {
   documentBody.append(canvasElement)
 })
 
-// Create line charts.
+// Create line charts for each test case.
 DATA_POINT_TEST_CASES.forEach((testCase) => {
   const lineObj = dataVisualizer.createLineChart(testCase)
   
@@ -43,7 +43,7 @@ DATA_POINT_TEST_CASES.forEach((testCase) => {
   documentBody.append(lineCanvasElement)
 })
 
-// Create pie charts.
+// Create pie charts for each test case.
 DATA_POINT_TEST_CASES.forEach((testCase) => {
   const pieObj = dataVisualizer.createPieChart(testCase)
   
