@@ -11,7 +11,6 @@
   "author": "Jennifer von Trotta-Treyden <jv222th@student.lnu.se>",
   "license": "MIT",
   "devDependencies": {
-    "canvas": "^2.11.2",
     "jest": "^29.7.0",
     "jest-chain": "^1.1.6",
     "jest-environment-jsdom": "^29.7.0",
