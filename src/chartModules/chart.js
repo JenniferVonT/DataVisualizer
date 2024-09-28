@@ -300,8 +300,8 @@ export class Chart {
     this.#colorThemes = { 
       blue: {
         background: '#cddaff',
-        lines: '#001a69',
-        data: [ '#0035d8', '#0f4aff', '#3b6bff', '#537dff', '#6d91ff', '#8ca8ff' ]
+        lines: '#002184',
+        data: [ '#8ca8ff', '#4d79ff', '#3b6bff', '#3163ff', '#0f4aff', '#1c2fff' ]
       },
       green: {
         background: '#ddffdb',

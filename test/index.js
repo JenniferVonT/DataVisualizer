@@ -7,8 +7,7 @@
 
 import { DataVisualizer } from '../src/dataVisualizer'
 
-const DATA_POINT_TEST_CASES = [ // from 0-10 data points.
-  {},
+const DATA_POINT_TEST_CASES = [ // from 1-10 data points.
   { profit: 190 },
   { profit: 130, revenue: 180 },
   { cats: 40, dogs: 55, birds: 10 },
@@ -35,7 +34,7 @@ DATA_POINT_TEST_CASES.forEach((testCase) => {
   documentBody.append(canvasElement)
 })
 
-// Create a line charts.
+// Create line charts.
 DATA_POINT_TEST_CASES.forEach((testCase) => {
   const lineObj = dataVisualizer.createLineChart(testCase)
   
@@ -44,17 +43,13 @@ DATA_POINT_TEST_CASES.forEach((testCase) => {
   documentBody.append(lineCanvasElement)
 })
 
-/*
+// Create pie charts.
+DATA_POINT_TEST_CASES.forEach((testCase) => {
+  const pieObj = dataVisualizer.createPieChart(testCase)
+  
+  const pieCanvasElement = pieObj.getCanvasElement()
+  
+  pieObj.setColorTheme('yellow')
 
-const columnChartObj = dataVisualizer.createColumnChart(DATA_POINT_TEST_CASES[10])
-const lineChartObj = dataVisualizer.createLineChart(DATA_POINT_TEST_CASES[10])
-
-// columnChartObj.setColorTheme('green')
-// lineChartObj.setColorTheme('blue')
-
-const columnCanvasElement = columnChartObj.getCanvasElement()
-const lineCanvasElement = lineChartObj.getCanvasElement()
-
-documentBody.append(columnCanvasElement)
-documentBody.append(lineCanvasElement)
-*/
+  documentBody.append(pieCanvasElement)
+})
