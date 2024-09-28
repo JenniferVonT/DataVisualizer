@@ -22,20 +22,20 @@ export class ColumnChart extends Chart {
       chart.fillRect(0, 0, this._canvasElement.width, this._canvasElement.height)
 
       const amountOfColumns = Object.keys(this._dataPoints).length
-      this._drawColumns(amountOfColumns)
+      this.#drawColumns(amountOfColumns)
     } catch (error) {
       this._errorHandler.consoleError(error)
     }
   }
 
-  _drawColumns (amountOfColumns) {
+  #drawColumns (amountOfColumns) {
     try {
       const chart = this._canvasElement.getContext('2d')
       const theme = this._getTheme()
 
       const columnWidth = this._canvasElement.width / amountOfColumns
 
-      const maxValue = this._getMaxDataValue()
+      const maxValue = this.#getMaxDataValue()
 
       Object.entries(this._dataPoints).forEach(([ key, data ], index) => {
         const columnHeight = (data / maxValue) * this._canvasElement.height
@@ -52,7 +52,7 @@ export class ColumnChart extends Chart {
     }
   }
 
-  _getMaxDataValue () {
+  #getMaxDataValue () {
     return Math.max(...Object.values(this._dataPoints))
   }
 

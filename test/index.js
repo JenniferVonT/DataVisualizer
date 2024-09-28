@@ -35,10 +35,9 @@ documentBody.append(canvasElement)
 // Create column charts for each test case.
 DATA_POINT_TEST_CASES.forEach((testCase) => {
   const chartObj = dataVisualizer.createColumnChart(testCase)
-  chartObj.setColorTheme('yellow')
+  chartObj.setColorTheme('green')
 
   const canvasElement = chartObj.getCanvasElement()
 
   documentBody.append(canvasElement)
-  documentBody.append(document.createElement('br'))
 })

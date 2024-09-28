@@ -12,9 +12,9 @@ export class Chart {
   _errorHandler
   _dataPoints
   _globalOptions
-  _dataPointLimit
   _canvasElement
-  _colorThemes
+  #dataPointLimit
+  #colorThemes
   #maxHeightAndWidth
   #minHeightAndWidth
 
@@ -23,10 +23,10 @@ export class Chart {
     this._errorHandler = new ErrorHandler()
     this._dataPoints = {}
     this._globalOptions = {}
-    this._dataPointLimit = 6
     this._canvasElement = document.createElement('canvas')
-    this._colorThemes = {}
 
+    this.#dataPointLimit = 15
+    this.#colorThemes = {}
     this.#maxHeightAndWidth = 2000
     this.#minHeightAndWidth = 20
 
@@ -38,7 +38,7 @@ export class Chart {
 
   #buildChart() {
     try {
-      this._insertWidthAndHeight()
+      this.#insertWidthAndHeight()
 
       if (Object.keys(this._dataPoints).length !== 0) {
         this._drawChart()        
@@ -67,6 +67,10 @@ export class Chart {
       if (typeof dataPoint !== 'number') {
         throw this._errorHandler.createErrorObject('#isDataPointsValid: One or more datapoint value(s) is not the correct type, it should be a number.', 400)
       }
+    }
+
+    if (!(Object.keys(dataPoints).length <= this.#dataPointLimit)) {
+      return false
     }
 
     return true
@@ -154,7 +158,7 @@ export class Chart {
   }
 
   #isDataFull () {
-    if (Object.keys(this._dataPoints).length < this._dataPointLimit) {
+    if (Object.keys(this._dataPoints).length < this.#dataPointLimit) {
       return false
     } else {
       return true
@@ -235,7 +239,7 @@ export class Chart {
     return this._dataPoints
   }
 
-  _clearCanvasContext () {
+  #clearCanvasContext () {
     const canvasContext = this._canvasElement.getContext('2d')
 
     if (canvasContext) {
@@ -247,14 +251,14 @@ export class Chart {
 
   #updateChart() {
     try {
-      this._clearCanvasContext()
+      this.#clearCanvasContext()
       this.#buildChart()
     } catch (error) {
       this._errorHandler.consoleError(error)
     }
   }
 
-  _insertWidthAndHeight () {
+  #insertWidthAndHeight () {
     if (this._globalOptions.height) {
       this._canvasElement.height = this._globalOptions.height
     }
@@ -265,7 +269,7 @@ export class Chart {
   }
 
   #createColorThemes() {
-    this._colorThemes = { 
+    this.#colorThemes = { 
       blue: {
         background: '#cddaff',
         lines: '#001a69',
@@ -290,8 +294,8 @@ export class Chart {
   }
 
   _getTheme () {
-    return this._colorThemes[this._globalOptions.color]
+    return this.#colorThemes[this._globalOptions.color]
   }
 
-  _drawChart () { /* Overridden in sub classes */}
+  _drawChart () { /* Overridden in sub classes (unique to each type of chart) */}
 }
