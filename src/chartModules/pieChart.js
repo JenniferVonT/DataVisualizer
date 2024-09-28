@@ -13,5 +13,5 @@ export class PieChart extends Chart {
     super(globalOptions, dataPoints) 
   }
 
-  _buildChart() {}
+  _drawChart () {}
 }

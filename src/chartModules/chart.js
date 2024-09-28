@@ -14,6 +14,7 @@ export class Chart {
   _globalOptions
   _dataPointLimit
   _canvasElement
+  _colorThemes
   #maxHeightAndWidth
   #minHeightAndWidth
 
@@ -23,13 +24,30 @@ export class Chart {
     this._dataPoints = {}
     this._globalOptions = {}
     this._dataPointLimit = 6
-    this._canvasElement
+    this._canvasElement = document.createElement('canvas')
+    this._colorThemes = {}
 
     this.#maxHeightAndWidth = 2000
     this.#minHeightAndWidth = 20
 
     this.#saveDataPoints(dataPoints)
     this.#saveGlobalOptions(globalOptions)
+    this.#createColorThemes()
+    this.#buildChart()
+  }
+
+  #buildChart() {
+    try {
+      console.log('starting building chart...')
+      this._insertWidthAndHeight()
+
+      if (Object.keys(this._dataPoints).length !== 0) {
+        console.log('starting drawing chart...')
+        this._drawChart()        
+      }
+    } catch (error) {
+      this._errorHandler.consoleError(error)
+    }
   }
 
   #saveDataPoints (dataPoints) {
@@ -43,7 +61,7 @@ export class Chart {
   }
 
   #isDataPointsValid (dataPoints) {
-    if (typeof dataPoints !== 'object' || dataPoints === null) {
+    if (!dataPoints || typeof dataPoints !== 'object' || Object.keys(dataPoints).length === 0) {
       return false
     }
 
@@ -86,7 +104,7 @@ export class Chart {
       if (this.#isColorValidType(color)) {
         this._globalOptions.color = color
 
-        this._updateChart()
+        this.#updateChart()
       }
     } catch (error) {
       this._errorHandler.consoleError(error)
@@ -111,7 +129,7 @@ export class Chart {
         if (this.#isDataPointsValid({ [key]: value }))
           this._dataPoints[key] = value
 
-          this._updateChart()
+          this.#updateChart()
       }
     } catch (error) {
       this._errorHandler.consoleError(error)
@@ -129,7 +147,7 @@ export class Chart {
         if (this.#isDataPresent(key, oldValue)) {
           this._dataPoints[key] = newValue
 
-          this._updateChart()
+          this.#updateChart()
         }
       }
     } catch (error) {
@@ -163,7 +181,7 @@ export class Chart {
       if (this.#isDataPresent(key, value)) {
        delete this._dataPoints[key]
 
-       this._updateChart()
+       this.#updateChart()
       }
     } catch (error) {
       this._errorHandler.consoleError(error)
@@ -177,7 +195,7 @@ export class Chart {
     if (this.#isHeightOrWidthValid(height)) {
       this._globalOptions.height = height
 
-      this._updateChart()
+      this.#updateChart()
     }
   }
 
@@ -188,7 +206,7 @@ export class Chart {
     if (this.#isHeightOrWidthValid(width)) {
       this._globalOptions.width = width
 
-      this._updateChart()
+      this.#updateChart()
     }
   }
 
@@ -202,17 +220,80 @@ export class Chart {
   clearChart () {
     this._dataPoints = {}
 
-    this._updateChart()
+    this.#updateChart()
   }
 
   /**
    * @returns {HTMLCanvasElement}
    */
-  getCanvasElement () {}
+  getCanvasElement () {
+    return this._canvasElement
+  }
 
-  getDataPoints () {}
+  /**
+   * @returns {Object}
+   */
+  getDataPoints () {
+    return this._dataPoints
+  }
 
-  _updateChart () {}
+  _clearCanvasContext () {
+    const canvasContext = this._canvasElement.getContext('2d')
 
-  _buildChart () {}
+    if (canvasContext) {
+      canvasContext.clearRect(0, 0, this._canvasElement.width, this._canvasElement.height)
+    } else {
+      throw this._errorHandler.createErrorObject('Unable to get the canvas element context ', 500)
+    }
+  }
+
+  #updateChart() {
+    try {
+      this._clearCanvasContext()
+      this._buildChart()
+    } catch (error) {
+      this._errorHandler.consoleError(error)
+    }
+  }
+
+  _insertWidthAndHeight () {
+    if (this._globalOptions.height) {
+      this._canvasElement.height = this._globalOptions.height
+    }
+
+    if (this._globalOptions.width) {
+      this._canvasElement.width = this._globalOptions.width
+    }
+  }
+
+  #createColorThemes() {
+    this._colorThemes = { 
+      blue: {
+        background: '#cddaff',
+        lines: '#001a69',
+        data: [ '#0035d8', '#0f4aff', '#3b6bff', '#537dff', '#6d91ff', '#8ca8ff' ]
+      },
+      green: {
+        background: '#ddffdb',
+        lines: '#033700',
+        data: [ '#078500', '#0ab400', '#0ef400', '#37ff2b', '#6cff64', '#9dff97' ]
+      },
+      red: {
+        background: '#ffeaed',
+        lines: '#56000c',
+        data: [ '#ad0019', '#e10020', '#ff0f31', '#ff4e68', '#ff7488', '#ffa5b2' ]
+     },
+      yellow: {
+        background: '#fffff4',
+        lines: '#464600',
+        data: [ '#969600', '#cece00', '#ffff05', '#ffff34', '#ffff6f', '#ffffa3' ]
+      }
+    }
+  }
+
+  _getTheme () {
+    return this._colorThemes[this._globalOptions.color]
+  }
+
+  _drawChart () { console.log('drawChart in the Chart class') }
 }

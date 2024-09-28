@@ -17,5 +17,5 @@ export class LineChart extends Chart {
     this._dataPointLimit = 10
   }
 
-  _buildChart() {}
+  _drawChart () {}
 }
