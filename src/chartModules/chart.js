@@ -74,7 +74,9 @@ export class Chart {
       }
     }
 
-    if (!(Object.keys(dataPoints).length <= this.#dataPointLimit)) {
+    const currentDataPointAmount = Object.keys(this._dataPoints).length
+    const newDataPointAmount = Object.keys(dataPoints).length
+    if ((currentDataPointAmount + newDataPointAmount) > this.#dataPointLimit) {
       return false
     }
 

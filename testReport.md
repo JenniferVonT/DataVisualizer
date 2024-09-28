@@ -178,3 +178,13 @@ first insert a data point then delete it.
 | Test Case |                 Input                 |          Expected         | Status |
 |-----------|---------------------------------------|---------------------------|--------|
 |     1     | Set multiple data points - then clear | 'pass': _dataPoints = {}  |   ✅   |
+
+### `getCanvasElement()`
+| Test Case |    Input    |                          Expected                          | Status |
+|-----------|-------------|------------------------------------------------------------|--------|
+|     1     | call method | The returned object to be an instance of HTMLCanvasElement |   ✅   |
+
+### `getDataPoints()`
+| Test Case |                      Input                      |                                          Expected                                         | Status |
+|-----------|-------------------------------------------------|-------------------------------------------------------------------------------------------|--------|
+|     1     | Set multiple data points - then call the method | The return object to be an Object, the corresponding data length that has been set before |   ✅   |

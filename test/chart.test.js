@@ -8,9 +8,6 @@
  */
 
 import { Chart } from '../src/chartModules/chart.js'
-import { ColumnChart } from '../src/chartModules/columnChart.js'
-import { LineChart } from '../src/chartModules/lineChart.js'
-import { PieChart } from '../src/chartModules/pieChart.js'
 import { jest } from '@jest/globals'
 
 const chart = new Chart()
@@ -22,6 +19,12 @@ const DATA_TEST_CASES = [
   { data: { birds: 350 }, expected: 'pass' },
   { data: { 1234: '100' }, expected: ERROR_MESSAGE_DATA_VALIDITY },
   { data: { test: 'test' }, expected: ERROR_MESSAGE_DATA_VALIDITY }
+]
+
+const CORRECT_DATA_TEST_CASES = [
+  { profit: 140 },
+  { revenue: 234 },
+  { taxes: 100 }
 ]
 
 /*-----------Testing the setColorTheme method in the Chart class-----------*/
@@ -177,16 +180,51 @@ const clearChart = chart.clearChart.bind(chart)
 
 describe('clearChart: ', () => {
   DATA_TEST_CASES.forEach(({ data, expected }, index) => {
-    if (expected === 'pass') {
-      const [key, value] = Object.entries(data)[0]
+    test(`Test case ${index + 1}: `, () => {
 
-      insertDataPoint(key, value)
-    }
+      if (expected === 'pass') {
+        const [key, value] = Object.entries(data)[0]
+
+        insertDataPoint(key, value)
+      
+        expect(chart._dataPoints).not.toEqual({})
+
+        clearChart()
+
+        expect(chart._dataPoints).toEqual({}) 
+      } else {
+        expect(chart._dataPoints).toEqual({})
+      }
+    })
   })
+})
 
-  expect(chart._dataPoints).not.toEqual({})
+/*-----------Testing the getCanvasElement method in the Chart class-----------*/
+const getCanvasElement = chart.getCanvasElement.bind(chart)
 
-  clearChart()
+describe('getCanvasElement: ', () => {
+  test(`Test case 1: `, () => {
+    const canvasElement = getCanvasElement()
 
-  expect(chart._dataPoints).toEqual({})
+    expect(canvasElement).toBeInstanceOf(HTMLCanvasElement)
+  })
+})
+
+/*-----------Testing the getDataPoints method in the Chart class-----------*/
+const getDataPoints = chart.getDataPoints.bind(chart)
+
+describe('getDataPoints: ', () => {
+  CORRECT_DATA_TEST_CASES.forEach((data, index) => {
+    test(`Test case ${index + 1}: `, () => {
+      const [ key, value ] = Object.entries(data)[0]
+
+        insertDataPoint(key, value)
+
+        const dataPoints = getDataPoints()
+        const expectedAmountOfDataPoints = index + 1
+
+        expect(dataPoints).toBeInstanceOf(Object)
+        expect(Object.keys(dataPoints).length).toBe(expectedAmountOfDataPoints)
+    })
+  })
 })
