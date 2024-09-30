@@ -26,7 +26,7 @@ export class DataVisualizer {
    * Sets the global options used when creating charts.
    * Width and heigth are measured in pixels.
    *
-   * @param {Object} options - { color: 'blue/green/red/yellow', width: '123', height: '123' }
+   * @param {Object} options - { color: 'blue/green/red/yellow', width: number, height: number }
    */
   setGlobalOptions (options) {
     try {
@@ -65,7 +65,7 @@ export class DataVisualizer {
   }
 
   #isWidthCorrectTypeAndValue (width) {
-    if (typeof width === 'string' && /^[1-9]\d*$/.test(width)) {
+    if (typeof width === 'number' && /^[1-9]\d*$/.test(width.toString())) {
       return true
     } else {
       return false
@@ -73,7 +73,7 @@ export class DataVisualizer {
   }
 
   #isHeigthCorrectTypeAndValue (height) {
-    if (typeof height === 'string' && /^[1-9]\d*$/.test(height)) {
+    if (typeof height === 'number' && /^[1-9]\d*$/.test(height.toString())) {
       return true
     } else {
       return false

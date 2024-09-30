@@ -28,12 +28,23 @@ export class PieChart extends Chart {
       const chart = this._canvasElement.getContext('2d')
       const theme = this._getTheme()
 
-      const chartHeight = this._canvasElement.height
-      const chartWidth = this._canvasElement.width
+      const height = this._canvasElement.height
+      const width = this._canvasElement.width
+
+      let shortSide
+      let longSide
+
+      if (height > width) {
+        longSide = height
+        shortSide = width
+      } else {
+        longSide = width
+        shortSide = height
+      }
 
 
       chart.fillStyle = theme.background
-      chart.fillRect(0, 0, this._canvasElement.width, this._canvasElement.height)
+      chart.fillRect(0, 0, width, height)
 
       const totalSumOfAllData = Object.values(this._dataPoints).reduce((acc, value) => acc + value, 0)
       let startAngle = 0
@@ -41,10 +52,11 @@ export class PieChart extends Chart {
       Object.entries(this._dataPoints).forEach(([ name, data ], index) => {
         const dataSliceAngle = (data / totalSumOfAllData) * 2 * Math.PI
         const endAngle = startAngle + dataSliceAngle
+        const radius = shortSide / 2 - 30
     
         chart.beginPath()
-        chart.moveTo(chartWidth / 2, chartHeight / 2)
-        chart.arc((chartWidth / 2), (chartHeight / 2), (chartHeight / 2 - 20), startAngle, endAngle)
+        chart.moveTo(width / 2, height / 2)
+        chart.arc((width / 2), (height / 2), radius, startAngle, endAngle)
         chart.closePath()
 
         // Loop all the colors to fill the data slices with.
@@ -55,8 +67,8 @@ export class PieChart extends Chart {
         chart.stroke()
 
         const angleAtTheCenterOfSlice = (startAngle + endAngle) / 2
-        const textPositionX = (chartWidth / 2) + (chartHeight / 2 - 20) * Math.cos(angleAtTheCenterOfSlice) * 1.35
-        const textPositionY = (chartHeight / 2) + (chartHeight / 2 - 20) * Math.sin(angleAtTheCenterOfSlice) * 1.1
+        const textPositionX = (width / 2) + radius * Math.cos(angleAtTheCenterOfSlice) * 1.35
+        const textPositionY = (height / 2) + radius * Math.sin(angleAtTheCenterOfSlice) * 1.1
 
         chart.strokeStyle = theme.lines || 'black'
         chart.fillStyle = theme.lines || 'black'

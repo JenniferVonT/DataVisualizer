@@ -227,6 +227,7 @@ export class Chart {
     if (this.#isHeightOrWidthValid(height)) {
       this._globalOptions.height = height
 
+      this.#insertWidthAndHeight()
       this.#updateChart()
     }
   }
@@ -238,6 +239,7 @@ export class Chart {
     if (this.#isHeightOrWidthValid(width)) {
       this._globalOptions.width = width
 
+      this.#insertWidthAndHeight()
       this.#updateChart()
     }
   }

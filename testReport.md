@@ -197,19 +197,178 @@ first insert a data point then delete it.
 In the test directory there is a index.html and index.js file present, 
 these are there to test the module in the browser on the client by running it on a local server using vite.
 
-### ColmunChart
+### ColumnChart
 The test is made in a loop with 10 different amounts of data point inputs:
 - Tested by instantiating the ColumnChart class and binding it to a constant.
-- Setting the color theme to green.
 - Inserting it into the DOM.
+
+**Result**: All 10 charts are inserted and displayed correctly
 
 ### LineChart
 The test is made in a loop with 10 different amounts of data point inputs:
 - Tested by instantiating the LineChart class and binding it to a constant.
 - Inserting it into the DOM.
 
+**Result**: All 10 charts are inserted and displayed correctly
+
 ### PieChart
 The test is made in a loop with 10 different amounts of data point inputs:
 - Tested by instantiating the PieChart class and binding it to a constant.
-- Setting the color theme to yellow.
 - Inserting it into the DOM.
+
+**Result**: All 10 charts are inserted and displayed correctly
+
+### Chart Class
+Since all above mentioned classes are subclasses of the Chart class I decided to combine the testing of all the methods that are located in the superclass here.
+
+#### Starting all tests.
+All tests are started by instantiating a DataVisualizer class and creating one of the three charts like this, do the test and then getting the canvas element and appending it to the DOM body element:
+
+```javascript
+  const dataVisualizer = new DataVisualizer()
+  const body = document.querySelector('body')
+
+  const dataPoints = { one: 5, two: 10, three: 15, four: 20, five: 40, six: 22 }
+  
+  const chart = dataVisualizer.createLineChart(dataPoints) // or createColumnChart(dataPoints) or createPieChart(dataPoints)
+
+  /* TEST */
+
+  body.append(chart.getCanvasElement())
+```
+
+#### All public methods of the Chart Class:
+
+--------------------------------------------
+- `setColorTheme(string)`
+The standard color theme is set to blue, so if nothing is set it will default to blue. The currently acceptable color themes are *red*, *green*, *blue* and *yellow*
+
+**Expected**: The chart to become a green color.
+**Result**: The chart changed to a green color theme.
+
+```javascript
+    chart.setColorTheme('green')
+```
+
+**Expected**: The chart to stay as the default/previously set color theme.
+**Result**: The chart stayed as the default/previously set color.
+
+```javascript
+    chart.setColorTheme('purple')
+    chart.setColorTheme(123)
+```
+
+--------------------------------------------
+- `insertDataPoint(string, int)`
+
+**Expected**: The chart to be updated visually with the new data point.
+**Result**: The data point is successfully inserted into the chart.
+```javascript
+    chart.insertDataPoint('seven', 25)
+```
+
+--------------------------------------------
+- `updateDataPoint(string, int, int)`
+
+**Expected**: The data point 'one' with the value 5 to be update to get a value of 20.
+**Result**: The data point is successfully updated.
+```javascript
+    chart.updateDataPoint('one', 5, 20)
+```
+
+**Expected**: The data point to not be updated (to avoid changing a datapoint with the same key name but with a different value)
+**Result**: The data point is not changed.
+```javascript
+    chart.updateDataPoint('one', 20)
+```
+
+--------------------------------------------
+- `deleteDataPoint(string, int)`
+
+**Expected**: The data point to be deleted and not shown in the chart.
+**Result**: The data point is successfully deleted.
+```javascript
+    chart.deleteDataPoint('three', 15)
+```
+
+
+--------------------------------------------
+- `setHeightTo(int)`
+The default height of the chart is 200 pixels.
+
+**Expected**: The chart to go from 200 to 300 pixels high/tall.
+**Result**: The chart is successfully changed to 300 pixels high.
+```javascript
+  chart.setHeightTo(300)
+```
+
+**Expected**: The chart to stay at 200 high/tall.
+**Result**: The chart is not changed.
+```javascript
+  chart.setHeightTo('test')
+```
+
+--------------------------------------------
+- `setWidthTo(int)`
+The default width of the chart is 300 pixels.
+
+**Expected**: The chart to go from 300 to 600 pixels wide.
+**Result**: The chart is successfully changed to 300 pixels wide.
+```javascript
+    chart.setWidthTo(600)
+```
+
+**Expected**: The chart to stay at 300 wide.
+**Result**: The chart is not changed.
+```javascript
+    chart.setWidthTo('test')
+```
+
+--------------------------------------------
+- `clearChart()`
+
+**Expected**: All data points are wiped from the chart leaving it empty.
+**Result**: The chart is cleared from all data points.
+```javascript
+  chart.clearChart()
+```
+
+--------------------------------------------
+- `getCanvasElement()`
+
+**Expected**: To get an instance of a HTMLCanvasElement that is connected to the Chart class.
+**Result**: Successfully gets a Canvas element with all the changes made through the Chart class applied to it.
+```javascript
+  const canvasElement = chart.getCanvasElement()
+  console.log(canvasElement) // => <canvas height="200" width="300"></canvas> (some browser do not show the closing tag for canvas elements when there is no content inbetween but it is present)
+```
+
+--------------------------------------------
+- `getDataPoints()`
+
+**Expected**: To get all the data points that are currently present in the chart.
+**Result**: Successfully gets all the data points as an object.
+```javascript
+const dataPoints = chart.getDataPoints()
+console.log(dataPoints) // => { one: 5, two: 10, three: 15, four: 20, five: 40, six: 22 }
+```
+
+### DataVisualizer
+Since the create methods are all tested at the start of each semi automatic/manual test I decided to only show the one unique method to the DataViualizer not mentioned in the other tests.
+
+- `setGlobalOptions(obj)`
+
+**Expected**: The color, width and height inserted to become the default for the charts.
+**Result**: The color theme, width and height are correctly applied to the canvas elements.
+The test:
+```javascript
+  const dataVisualizer = new Datavisualizer()
+
+  options = {
+    'color': 'red',
+    'width': 400,
+    'height': 600
+  }
+
+  dataVisualizer.setGlobalOptions(options)
+```
