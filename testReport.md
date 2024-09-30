@@ -243,14 +243,14 @@ All tests are started by instantiating a DataVisualizer class and creating one o
 - `setColorTheme(string)`
 The standard color theme is set to blue, so if nothing is set it will default to blue. The currently acceptable color themes are *red*, *green*, *blue* and *yellow*
 
-**Expected**: The chart to become a green color.
+**Expected**: The chart to become a green color. <br>
 **Result**: The chart changed to a green color theme.
 
 ```javascript
     chart.setColorTheme('green')
 ```
 
-**Expected**: The chart to stay as the default/previously set color theme.
+**Expected**: The chart to stay as the default/previously set color theme. <br>
 **Result**: The chart stayed as the default/previously set color.
 
 ```javascript
@@ -261,7 +261,7 @@ The standard color theme is set to blue, so if nothing is set it will default to
 --------------------------------------------
 - `insertDataPoint(string, int)`
 
-**Expected**: The chart to be updated visually with the new data point.
+**Expected**: The chart to be updated visually with the new data point. <br>
 **Result**: The data point is successfully inserted into the chart.
 ```javascript
     chart.insertDataPoint('seven', 25)
@@ -270,13 +270,13 @@ The standard color theme is set to blue, so if nothing is set it will default to
 --------------------------------------------
 - `updateDataPoint(string, int, int)`
 
-**Expected**: The data point 'one' with the value 5 to be update to get a value of 20.
+**Expected**: The data point 'one' with the value 5 to be update to get a value of 20. <br>
 **Result**: The data point is successfully updated.
 ```javascript
     chart.updateDataPoint('one', 5, 20)
 ```
 
-**Expected**: The data point to not be updated (to avoid changing a datapoint with the same key name but with a different value)
+**Expected**: The data point to not be updated (to avoid changing a datapoint with the same key name but with a different value) <br>
 **Result**: The data point is not changed.
 ```javascript
     chart.updateDataPoint('one', 20)
@@ -285,7 +285,7 @@ The standard color theme is set to blue, so if nothing is set it will default to
 --------------------------------------------
 - `deleteDataPoint(string, int)`
 
-**Expected**: The data point to be deleted and not shown in the chart.
+**Expected**: The data point to be deleted and not shown in the chart. <br>
 **Result**: The data point is successfully deleted.
 ```javascript
     chart.deleteDataPoint('three', 15)
@@ -296,13 +296,13 @@ The standard color theme is set to blue, so if nothing is set it will default to
 - `setHeightTo(int)`
 The default height of the chart is 200 pixels.
 
-**Expected**: The chart to go from 200 to 300 pixels high/tall.
+**Expected**: The chart to go from 200 to 300 pixels high/tall. <br>
 **Result**: The chart is successfully changed to 300 pixels high.
 ```javascript
   chart.setHeightTo(300)
 ```
 
-**Expected**: The chart to stay at 200 high/tall.
+**Expected**: The chart to stay at 200 high/tall. <br>
 **Result**: The chart is not changed.
 ```javascript
   chart.setHeightTo('test')
@@ -312,13 +312,13 @@ The default height of the chart is 200 pixels.
 - `setWidthTo(int)`
 The default width of the chart is 300 pixels.
 
-**Expected**: The chart to go from 300 to 600 pixels wide.
+**Expected**: The chart to go from 300 to 600 pixels wide. <br>
 **Result**: The chart is successfully changed to 300 pixels wide.
 ```javascript
     chart.setWidthTo(600)
 ```
 
-**Expected**: The chart to stay at 300 wide.
+**Expected**: The chart to stay at 300 wide. <br>
 **Result**: The chart is not changed.
 ```javascript
     chart.setWidthTo('test')
@@ -327,7 +327,7 @@ The default width of the chart is 300 pixels.
 --------------------------------------------
 - `clearChart()`
 
-**Expected**: All data points are wiped from the chart leaving it empty.
+**Expected**: All data points are wiped from the chart leaving it empty. <br>
 **Result**: The chart is cleared from all data points.
 ```javascript
   chart.clearChart()
@@ -336,7 +336,7 @@ The default width of the chart is 300 pixels.
 --------------------------------------------
 - `getCanvasElement()`
 
-**Expected**: To get an instance of a HTMLCanvasElement that is connected to the Chart class.
+**Expected**: To get an instance of a HTMLCanvasElement that is connected to the Chart class. <br>
 **Result**: Successfully gets a Canvas element with all the changes made through the Chart class applied to it.
 ```javascript
   const canvasElement = chart.getCanvasElement()
@@ -346,7 +346,7 @@ The default width of the chart is 300 pixels.
 --------------------------------------------
 - `getDataPoints()`
 
-**Expected**: To get all the data points that are currently present in the chart.
+**Expected**: To get all the data points that are currently present in the chart. <br>
 **Result**: Successfully gets all the data points as an object.
 ```javascript
 const dataPoints = chart.getDataPoints()
@@ -358,7 +358,7 @@ Since the create methods are all tested at the start of each semi automatic/manu
 
 - `setGlobalOptions(obj)`
 
-**Expected**: The color, width and height inserted to become the default for the charts.
+**Expected**: The color, width and height inserted to become the default for the charts. <br>
 **Result**: The color theme, width and height are correctly applied to the canvas elements.
 The test:
 ```javascript
