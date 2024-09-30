@@ -2,6 +2,8 @@
 
 A Module for JavaScript on the client side.
 
+This package can be found at the [NPMJS](https://www.npmjs.com/package/@jenvont/datavisualizer) website.
+
 This module can create three different customizable charts to visualize your data by creating and manipulating a `<canvas>` element. Making it easy to quickly present your data on your site using client side JavaScript.
 
 #### The charts that you can currently create are:
@@ -12,8 +14,6 @@ This module can create three different customizable charts to visualize your dat
 #### Dependencies
 No dependencies except default built in node functions.
 *During dev testing there is dependencies to vite and jest but these are not neccessary in production.*
-
-This is a project specifically created for the course `1DV610 - Intro to software quality` at the Linnaeus University (Sweden) which means I cannot guarantee that this module will be updated in the future.
 
 #### Quick example
 ```javascript

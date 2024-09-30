@@ -140,3 +140,6 @@ export class DataVisualizer {
     }
   }
 }
+
+// Keep this last outside of the class!
+export default DataVisualizer

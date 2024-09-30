@@ -2,7 +2,7 @@
   "name": "data_visualizer",
   "version": "1.0.0",
   "description": "Module that creates canvas elements visualizing data.",
-  "main": "src/index.js",
+  "main": "src/dataVisualizer.js",
   "type": "module",
   "scripts": {
     "dev": "vite",
