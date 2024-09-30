@@ -58,6 +58,12 @@ const DataVisualizer = require('@jenvont/datavisualizer')
 
 ## Documentation
 
+### Visual examples - colors
+Here are examples of all the color themes available at the moment for all three types of charts.
+![LineChartExamples](./img/colorThemeLineExamples.PNG)
+![ColumnChartExamples](./img/colorThemeColumnExamples.PNG)
+![PieChartExamples](./img/colorThemePieExample.PNG)
+
 ### - setGlobalOptions(obj)
 Sets the default options for all the canvas elements created, if nothing is set the default is "color: 'blue', width: '300', height: '200'".
 
