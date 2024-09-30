@@ -399,3 +399,6 @@ FodyWeavers.xsd
 
 # Coverage directory for jest test reports
 /coverage
+
+# Code Counter extention
+/.VSCodeCounter
