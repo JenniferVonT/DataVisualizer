@@ -23,7 +23,6 @@ const DATA_POINT_TEST_CASES = [ // from 1-10 data points.
 const dataVisualizerTest = new DataVisualizer()
 const documentBody = document.querySelector('body')
 
-
 // Create column charts for each test case.
 DATA_POINT_TEST_CASES.forEach((testCase) => {
   const chartObj = dataVisualizerTest.createColumnChart(testCase)
