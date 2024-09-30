@@ -1,3 +1,18 @@
+# Project Reflection
+I think I’ve learned a lot about working the way the Clean Code book teaches in the first three chapters.
+The first hurdle was trying to figure out what kind of module I wanted to make, the project description that said that the module should be (swe) “lagom”/”just-enough” made it really hard to figure out what that really means, the same with the minimum requirements since it was hard to think of a project from the start in terms of lines of code.
+When I finally figured out what my project was going to be I really tried to embrace as many lessons as possible from the Clean Code book. I started by taking a “top-down” approach and started with the most abstract classes and worked my way down. It actually made it easier in a way because I didn’t have to think about the small details from the start and could work my way down to them.
+
+I really tried to test as much as possible, private methods was hard to test since they couldn’t be imported to the test file but I tried to work around that by making sure that I tested the public methods that in turn calls the private ones and try to run tests that encompass the private method (for instance if it changes something I checked if that thing actually had been changed), I tried to write and run test every time I made a public method and it’s accompanying private ones to make sure that I had a high test coverage.
+
+I think I actually did very good with the “Do One Thing” rule in general in this project. I started abstract and worked my way down method by method. There are some places in the code though where this could have been better, especially in my chart subclasses that draws the actual charts (as reflected below in the class/method reflection tables), but in general I really tried to keep the methods as separated as possible.
+
+I tried to only keep the methods made for the user interface public and the rest private, but I ran into a bunch of issues with the inheritance and accessibility when some methods where made private in both the super class Chart and it’s subclasses ColumnChart, LineChart and PieChart which forced me to make them protected at the very least. As a result they are technically reached from the UI but have the protected prefix “_” to signal that they shouldn’t be used. The information stored in the Chart classes aren’t sensitive and is meant to be shown so from a security standpoint it is not an issue but it can make it a little confusing when using an IDE that shows available methods to the user.
+
+All in all it was a fun project and I think it went very well, I got more comfortable with automatic testing using Jest and got the opportunity to work with a different approach than I’m used to.
+
+
+# Class/Method reflections
 |                   Class name & explanation                    | Reflection based on Clean Code Chapter 2 |
 |-----------------------------------------------------------------------------|---------------------------------------|
 | **DataVisualizer** <br> The main class of the module                        | **Use Intention-Revealing Names:** It correctly gives the impression that it visualizes data somehow, but isn't really clear *how* it visualizes it. <br> **Use Pronounceable Names** It is easy to say/read to humans and is therefore easy to communicate to others about. |
