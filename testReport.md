@@ -4,6 +4,10 @@ This report documents all the tests for this module/package.
 The automatic tests are made using the `jest` framework.
 The semi automatic/manual testing is made on a local server on the client/in the browser using html and js
 
+## Latest Jest test report 30 September
+The coverage is very good and I have tried to test the majority of functions/methods, I cannot figure out a way to test private methods independently using jest but they are in a way tested through the public/protected methods when they are tested since they call the private methods. It is hard to test the column-, line- and pie- chart classes with the automatic jest tests since they only have a few methods and they all change the internal HTMLCanvas element within its own class and never returns anything (and the element is created in the superclass Chart when creating an instance of the class). But I test them in my semi automatic/manual tests in my test application when testing the visual aspect of the module.
+![testReport](./img/latest_test_report_30sep.PNG)
+
 ## ErrorHandler Tests
 
 ### `createErrorObject(string, string)` Automatic Tests
