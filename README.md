@@ -174,7 +174,7 @@ Returns the HTMLCanvasElement from the chart object.
     document.querySelector('body').append(canvasElement)
 ```
 
-### - detDataPoints()
+### - getDataPoints()
 Returns all the data points currently in the chart object
 
 **Input**: -
