@@ -5,7 +5,7 @@
  * @version 1.0.0
  */
 
-import { DataVisualizer } from '../src/dataVisualizer'
+import { DataVisualizer } from '../src/dataVisualizer.js'
 
 const DATA_POINT_TEST_CASES = [ // from 1-10 data points.
   { profit: 190 },

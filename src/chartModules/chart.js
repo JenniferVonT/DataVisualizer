@@ -7,6 +7,7 @@
  */
 
 import { ErrorHandler } from '../errorHandler.js'
+import { ColorTheme } from '../colorTheme.js'
 
 export class Chart {
   _errorHandler
@@ -14,7 +15,7 @@ export class Chart {
   _globalOptions
   _canvasElement
   #dataPointLimit
-  #colorThemes
+  #colorTheme
   #maxHeightAndWidth
   #minHeightAndWidth
 
@@ -30,13 +31,17 @@ export class Chart {
     this._canvasElement = document.createElement('canvas')
 
     this.#dataPointLimit = 15
-    this.#colorThemes = {}
+    this.#colorTheme = new ColorTheme()
+    this.#colorTheme.setColorTheme(this._globalOptions.color)
     this.#maxHeightAndWidth = 2000
     this.#minHeightAndWidth = 20
 
-    this.#createColorThemes()
-    this.#saveGlobalOptions(globalOptions)
-    this.#saveDataPoints(dataPoints)
+    if (Object.keys(globalOptions).length > 0) {
+      this.#saveGlobalOptions(globalOptions)
+    }
+    if (dataPoints) {
+      this.#saveDataPoints(dataPoints)
+    }
     this.#buildChart()
   }
 
@@ -84,44 +89,35 @@ export class Chart {
   }
 
   #saveGlobalOptions (options) {
-    if(this.#isOptionsValid(options))  {
-      if (options.color) {
-        this._globalOptions.color = options.color
+    try {
+      if(this.#isOptionsValid(options))  {
+        if (this.#colorTheme.isColorValidType(options.color)) {
+          this._globalOptions.color = options.color
+          this.#colorTheme.setColorTheme(options.color)
+        }
+        if (this.#isHeightOrWidthValid(options.width)) {
+          this._globalOptions.width = options.width
+        }
+        if (this.#isHeightOrWidthValid(options.height)) {
+          this._globalOptions.height = options.height
+        }
       }
-      if (options.width) {
-        this._globalOptions.width = options.width
-      }
-      if (options.height) {
-        this._globalOptions.height = options.height
-      }
+    } catch (error) {
+      this._errorHandler.consoleError(error)
     }
   }
 
   #isOptionsValid (options) {
     const validOptions = ['color', 'width', 'height']
-    let validState = false
+    let validState = true
   
     if (typeof options !== 'object' || options === null) {
-      return validState
+      validState = false
     }
 
     for (const [option, value] of Object.entries(options)) {
       if (!validOptions.includes(option)) {
-        return validState
-      }
-
-      switch (option) {
-        case 'color':
-          if (this.#isColorValidType(value)) { validState = true }
-          break
-        case 'width':
-          if (this.#isHeightOrWidthValid(value)) { validState = true }
-          break
-        case 'height':
-          if (this.#isHeightOrWidthValid(value)) { validState = true }
-          break
-        default:
-          break
+        validState = false
       }
     }
 
@@ -133,21 +129,11 @@ export class Chart {
    */
   setColorTheme (color) {
     try {
-      if (this.#isColorValidType(color)) {
-        this._globalOptions.color = color
+      this.#colorTheme.setColorTheme(color)
 
-        this.#updateChart()
-      }
+      this.#updateChart()
     } catch (error) {
       this._errorHandler.consoleError(error)
-    }
-  }
-
-  #isColorValidType (color) {
-    if (typeof color === 'string' && /blue|green|red|yellow/.test(color)) {
-      return true
-    } else {
-      throw this._errorHandler.createErrorObject('#isColorValidType: That color theme does not exist, choose: blue, green, red or yellow', 400)
     }
   }
 
@@ -300,37 +286,12 @@ export class Chart {
     }
   }
 
-  #createColorThemes() {
-    this.#colorThemes = { 
-      blue: {
-        background: '#cddaff',
-        lines: '#002184',
-        data: [ '#8ca8ff', '#4d79ff', '#3b6bff', '#3163ff', '#0f4aff', '#1c2fff' ]
-      },
-      green: {
-        background: '#ddffdb',
-        lines: '#033700',
-        data: [ '#078500', '#0ab400', '#0ef400', '#37ff2b', '#6cff64', '#9dff97' ]
-      },
-      red: {
-        background: '#ffeaed',
-        lines: '#56000c',
-        data: [ '#ad0019', '#e10020', '#ff0f31', '#ff4e68', '#ff7488', '#ffa5b2' ]
-     },
-      yellow: {
-        background: '#fffff4',
-        lines: '#464600',
-        data: [ '#969600', '#cece00', '#ffff05', '#ffff34', '#ffff6f', '#ffffa3' ]
-      }
-    }
-  }
-
   _getMaxDataValue () {
     return Math.max(...Object.values(this._dataPoints))
   }
 
   _getTheme () {
-    return this.#colorThemes[this._globalOptions.color]
+    return this.#colorTheme
   }
 
   _drawChart () { /* Overridden in sub classes (unique to each type of chart) */}

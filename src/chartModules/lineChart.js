@@ -27,14 +27,15 @@ export class LineChart extends Chart {
     try {
       const chart = this._canvasElement.getContext('2d')
       const theme = this._getTheme()
+      const lineColor = theme.getCurrentLineColor()
 
       const pointSpacing = this._canvasElement.width / amountOfDataPoints
       const maxValue = this._getMaxDataValue() + 20
 
-      chart.strokeStyle = theme.lines || 'black'
+      chart.strokeStyle = lineColor || 'black'
       chart.lineWidth = 2
 
-      chart.fillStyle = theme.background
+      chart.fillStyle = theme.getCurrentBackgroundColor()
       chart.fillRect(0, 0, this._canvasElement.width, this._canvasElement.height)
 
       chart.beginPath()
@@ -43,7 +44,7 @@ export class LineChart extends Chart {
         const dataPointYPosition = this._canvasElement.height - (data / maxValue) * this._canvasElement.height
         const dataPointXPosition = index * pointSpacing
 
-        chart.fillStyle = theme.lines || 'black'
+        chart.fillStyle = lineColor || 'black'
         chart.textAlign = 'center'
         chart.font = '0.6rem "Roboto", sans-serif'
 

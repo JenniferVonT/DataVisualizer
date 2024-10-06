@@ -27,6 +27,8 @@ export class PieChart extends Chart {
     try {
       const chart = this._canvasElement.getContext('2d')
       const theme = this._getTheme()
+      const lineColor = theme.getCurrentLineColor()
+      const dataColor = theme.getCurrentDataColors()
 
       const height = this._canvasElement.height
       const width = this._canvasElement.width
@@ -43,7 +45,7 @@ export class PieChart extends Chart {
       }
 
 
-      chart.fillStyle = theme.background
+      chart.fillStyle = theme.getCurrentBackgroundColor()
       chart.fillRect(0, 0, width, height)
 
       const totalSumOfAllData = Object.values(this._dataPoints).reduce((acc, value) => acc + value, 0)
@@ -60,7 +62,7 @@ export class PieChart extends Chart {
         chart.closePath()
 
         // Loop all the colors to fill the data slices with.
-        chart.fillStyle = theme.data[index % theme.data.length]
+        chart.fillStyle = dataColor[index % dataColor.length]
         chart.fill()
 
         chart.lineWidth = 1
@@ -70,8 +72,8 @@ export class PieChart extends Chart {
         const textPositionX = (width / 2) + radius * Math.cos(angleAtTheCenterOfSlice) * 1.35
         const textPositionY = (height / 2) + radius * Math.sin(angleAtTheCenterOfSlice) * 1.1
 
-        chart.strokeStyle = theme.lines || 'black'
-        chart.fillStyle = theme.lines || 'black'
+        chart.strokeStyle = lineColor || 'black'
+        chart.fillStyle = lineColor || 'black'
         chart.textAlign = 'center'
         chart.font = '1rem "Roboto", sans-serif'
         chart.fillText(`${name}(${data})`, textPositionX, textPositionY)

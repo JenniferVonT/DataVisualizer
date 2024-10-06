@@ -193,6 +193,68 @@ first insert a data point then delete it.
 |-----------|-------------------------------------------------|-------------------------------------------------------------------------------------------|--------|
 |     1     | Set multiple data points - then call the method | The return object to be an Object, the corresponding data length that has been set before |   ✅   |
 
+
+## ColorTheme Tests
+
+### `setColorTheme(str)`
+| Test Case |   Input  |        Expected       | Status |
+|-----------|----------|-----------------------|--------|
+|     1     |  'blue'  | Not to throw an error |   ✅   |
+|     2     | 'green'  | Not to throw an error |   ✅   |
+|     3     |  'red'   | Not to throw an error |   ✅   |
+|     4     | 'yellow' | Not to throw an error |   ✅   |
+|     5     | 'purple' | To throw an error     |   ✅   |
+|     6     | 'orange' | To throw an error     |   ✅   |
+
+### `getColorTheme()`
+Start every test by setting the color theme before hand with the same inputs as the `setColorTheme(srt)` test for each test case.
+
+| Test Case |       Input     |                          Expected/Returned                          | Status |
+|-----------|-----------------|---------------------------------------------------------------------|--------|
+|     1     | call the method | All the values to correlate with the blue color theme               |   ✅   |
+|     2     | call the method | All the values to correlate with the green color theme              |   ✅   |
+|     3     | call the method | All the values to correlate with the red color theme                |   ✅   |
+|     4     | call the method | All the values to correlate with the yellow color theme             |   ✅   |
+|     5     | call the method | To throw an error and the values should not change within the theme |   ✅   |
+|     6     | call the method | To throw an error and the values should not change within the theme |   ✅   |
+
+### `getCurrentBackgroundColor()`
+Start every test by setting the color theme before hand with the same inputs as the `setColorTheme(srt)` test for each test case.
+
+| Test Case |      Input      |                          Expected/Returned                          | Status |
+|-----------|-----------------|---------------------------------------------------------------------|--------|
+|     1     | call the method | The color to correlate with the blue color theme                    |   ✅   |
+|     2     | call the method | The color to correlate with the green color theme                   |   ✅   |
+|     3     | call the method | The color to correlate with the red color theme                     |   ✅   |
+|     4     | call the method | The color to correlate with the yellow color theme                  |   ✅   |
+|     5     | call the method | To throw an error and the values should not change within the theme |   ✅   |
+|     6     | call the method | To throw an error and the values should not change within the theme |   ✅   |
+
+### `getCurrentLineColor()`
+Start every test by setting the color theme before hand with the same inputs as the `setColorTheme(srt)` test for each test case.
+
+| Test Case |       Input     |                          Expected/Returned                          | Status |
+|-----------|-----------------|---------------------------------------------------------------------|--------|
+|     1     | call the method | The color to correlate with the blue color theme                    |   ✅   |
+|     2     | call the method | The color to correlate with the green color theme                   |   ✅   |
+|     3     | call the method | The color to correlate with the red color theme                     |   ✅   |
+|     4     | call the method | The color to correlate with the yellow color theme                  |   ✅   |
+|     5     | call the method | To throw an error and the values should not change within the theme |   ✅   |
+|     6     | call the method | To throw an error and the values should not change within the theme |   ✅   |
+
+### `getCurrentDataColors()`
+Start every test by setting the color theme before hand with the same inputs as the `setColorTheme(srt)` test for each test case.
+
+| Test Case |       Input     |                          Expected/Returned                          | Status |
+|-----------|-----------------|---------------------------------------------------------------------|--------|
+|     1     | call the method | The color to correlate with the blue color theme                    |   ✅   |
+|     2     | call the method | The color to correlate with the green color theme                   |   ✅   |
+|     3     | call the method | The color to correlate with the red color theme                     |   ✅   |
+|     4     | call the method | The color to correlate with the yellow color theme                  |   ✅   |
+|     5     | call the method | To throw an error and the values should not change within the theme |   ✅   |
+|     6     | call the method | To throw an error and the values should not change within the theme |   ✅   |
+
+
 ## Semi automatic/manual tests on the client.
 In the test directory there is a index.html and index.js file present, 
 these are there to test the module in the browser on the client by running it on a local server using vite.
