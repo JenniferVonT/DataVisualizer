@@ -21,9 +21,9 @@ const TEST_MULTIPLE_DATAPOINS = { elderly: 15, adults: 55, children: 25 }
 /*------------------Testing the setGlobalOptions method------------------*/
 const setGlobalOptions = dataVisualizer.setGlobalOptions.bind(dataVisualizer)
 
-const ERROR_MESSAGE_COLOR = '#isOptionsCorrect: That color theme does not exist, choose: blue, green, red or yellow'
-const ERROR_MESSAGE_WIDTH = '#isOptionsCorrect: The width is not correctly formatted or missing, please provide a string with integers not starting with 0'
-const ERROR_MESSAGE_HEIGHT = '#isOptionsCorrect: The height is not correctly formatted or missing, please provide a string with integers not starting with 0'
+const ERROR_MESSAGE_COLOR = 'That color theme does not exist, choose: blue, green, red or yellow'
+const ERROR_MESSAGE_WIDTH = 'The width is not correctly formatted or missing, please provide a string with integers not starting with 0'
+const ERROR_MESSAGE_HEIGHT = 'The height is not correctly formatted or missing, please provide a string with integers not starting with 0'
 
 const OPTION_TEST_CASES = [
   { color: 'red', width: 500, height: 200, expected: undefined },
