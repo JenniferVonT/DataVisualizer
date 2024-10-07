@@ -24,7 +24,7 @@ export class Data {
    * @throws {Error}
    */
   setMultipleDataPoints(dataPoints) {
-      if (!this.#isDataFull()) {
+      if (!this.#isDataFull(dataPoints)) {
         if (this.#isDataPointsValid(dataPoints)) {
           for (const [ key, value ] of Object.entries(dataPoints)) {
             if (!this.#dataPoints[key]) {
@@ -35,7 +35,7 @@ export class Data {
           throw this.#errorHandler.createErrorObject('One or more datapoint value(s) is not the correct type, it should be a number.', 400)
         }
       } else {
-        throw this.#errorHandler.createErrorObject('There is no more room for data', 400)
+        throw this.#errorHandler.createErrorObject('To many data points', 400)
       }
   }
 
@@ -45,7 +45,7 @@ export class Data {
    * @throws {Error}
    */
   setDataPoint(key, value) {
-    if (!this.#isDataFull()) {
+    if (!this.#isDataFull({ [key]: value })) {
       if (this.#isDataPointsValid({ [key]: value })) {
         this.#dataPoints[key] = value          
       } else {
@@ -123,8 +123,11 @@ export class Data {
     return false
   }
 
-  #isDataFull () {
-    if (Object.keys(this.#dataPoints).length < this.#dataPointLimit) {
+  #isDataFull (dataPoints) {
+    const currentDataPointAmount = this.getAmountOfDataPoints()
+    const newDataPointAmount = Object.keys(dataPoints).length
+
+    if ((currentDataPointAmount + newDataPointAmount) < this.#dataPointLimit) {
       return false
     } else {
       return true
@@ -140,12 +143,6 @@ export class Data {
       if (typeof dataPoint !== 'number') {
         return false
       }
-    }
-
-    const currentDataPointAmount = Object.keys(this.#dataPoints).length
-    const newDataPointAmount = Object.keys(dataPoints).length
-    if ((currentDataPointAmount + newDataPointAmount) > this.#dataPointLimit) {
-      return false
     }
 
     return true
