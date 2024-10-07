@@ -56,7 +56,7 @@ export class ColorTheme {
     if (this.isColorValidType(color)) {
       this.#currentColorTheme = color
     } else {
-      throw this.#errorHandler.createErrorObject('That color is not valid', 400)
+      throw this.#errorHandler.createErrorObject('That color is not valid, valid colors are: blue, green, red and yellow', 400)
     }
   }
 

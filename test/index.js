@@ -52,7 +52,7 @@ DATA_POINT_TEST_CASES.forEach((testCase) => {
 
   documentBody.append(pieCanvasElement)
 })
-
+/*
 const dataVisualizer = new DataVisualizer()
 
 const options = {
@@ -85,3 +85,4 @@ console.log(columnChart.getCanvasElement())
 documentBody.append(lineChart.getCanvasElement())
 documentBody.append(columnChart.getCanvasElement())
 documentBody.append(pieChart.getCanvasElement())
+*/

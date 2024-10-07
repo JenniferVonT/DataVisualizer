@@ -8,13 +8,13 @@
 
 import { ErrorHandler } from '../errorHandler.js'
 import { ColorTheme } from '../colorTheme.js'
+import { Data } from '../data.js'
 
 export class Chart {
   _errorHandler
-  _dataPoints
+  _data
   _globalOptions
   _canvasElement
-  #dataPointLimit
   #colorTheme
   #maxHeightAndWidth
   #minHeightAndWidth
@@ -26,17 +26,16 @@ export class Chart {
   constructor (globalOptions, dataPoints) {
 
     this._errorHandler = new ErrorHandler()
-    this._dataPoints = {}
+    this._data = new Data()
     this._globalOptions = { color: 'blue', width: '300', height: '200' }
     this._canvasElement = document.createElement('canvas')
 
-    this.#dataPointLimit = 15
     this.#colorTheme = new ColorTheme()
     this.#colorTheme.setColorTheme(this._globalOptions.color)
     this.#maxHeightAndWidth = 2000
     this.#minHeightAndWidth = 20
 
-    if (Object.keys(globalOptions).length > 0) {
+    if (globalOptions && Object.keys(globalOptions).length > 0) {
       this.#saveGlobalOptions(globalOptions)
     }
     if (dataPoints) {
@@ -50,7 +49,7 @@ export class Chart {
       this.#insertWidthAndHeight()
       this.#clearCanvasContext()
 
-      if (Object.keys(this._dataPoints).length !== 0) {
+      if (Object.keys(this._data.getDataPoints()).length !== 0) {
         this._drawChart()
       }
     } catch (error) {
@@ -60,32 +59,10 @@ export class Chart {
 
   #saveDataPoints (dataPoints) {
     try {
-      if (this.#isDataPointsValid(dataPoints)) {
-        this._dataPoints = dataPoints
-      }
+      this._data.setMultipleDataPoints(dataPoints)
     } catch (error) {
       this._errorHandler.consoleError(error)
     }
-  }
-
-  #isDataPointsValid (dataPoints) {
-    if (!dataPoints || typeof dataPoints !== 'object' || Object.keys(dataPoints).length === 0) {
-      return false
-    }
-
-    for (const [key, dataPoint] of Object.entries(dataPoints)) {
-      if (typeof dataPoint !== 'number') {
-        throw this._errorHandler.createErrorObject('#isDataPointsValid: One or more datapoint value(s) is not the correct type, it should be a number.', 400)
-      }
-    }
-
-    const currentDataPointAmount = Object.keys(this._dataPoints).length
-    const newDataPointAmount = Object.keys(dataPoints).length
-    if ((currentDataPointAmount + newDataPointAmount) > this.#dataPointLimit) {
-      return false
-    }
-
-    return true
   }
 
   #saveGlobalOptions (options) {
@@ -130,6 +107,7 @@ export class Chart {
   setColorTheme (color) {
     try {
       this.#colorTheme.setColorTheme(color)
+      this._globalOptions.color = color
 
       this.#updateChart()
     } catch (error) {
@@ -143,12 +121,8 @@ export class Chart {
    */
   insertDataPoint (key, value) {
     try {
-      if (!this.#isDataFull()) {
-        if (this.#isDataPointsValid({ [key]: value }))
-          this._dataPoints[key] = value
-
-          this.#updateChart()
-      }
+      this._data.setDataPoint(key, value)
+      this.#updateChart()
     } catch (error) {
       this._errorHandler.consoleError(error)
     }
@@ -161,34 +135,13 @@ export class Chart {
    */
   updateDataPoint (key, oldValue, newValue) {
     try {
-      if (this.#isDataPointsValid({ [key]: newValue })) {
-        if (this.#isDataPresent(key, oldValue)) {
-          this._dataPoints[key] = newValue
-
-          this.#updateChart()
-        }
-      }
+      this._data.updateDataPoint(key, oldValue, newValue)
+      this.#updateChart()
     } catch (error) {
       this._errorHandler.consoleError(error)
     }
   }
 
-  #isDataFull () {
-    if (Object.keys(this._dataPoints).length < this.#dataPointLimit) {
-      return false
-    } else {
-      return true
-    }
-  }
-
-  #isDataPresent (key, value) {
-    const dataPointKey = this._dataPoints[key]
-
-    if (dataPointKey && dataPointKey === value) {
-      return true
-    }
-    return false
-  }
 
   /**
    * @param {String} key
@@ -196,11 +149,8 @@ export class Chart {
    */
   deleteDataPoint (key, value) {
     try {
-      if (this.#isDataPresent(key, value)) {
-       delete this._dataPoints[key]
-
-       this.#updateChart()
-      }
+      this._data.deleteDataPoint(key, value)
+      this.#updateChart()
     } catch (error) {
       this._errorHandler.consoleError(error)
     }
@@ -238,7 +188,7 @@ export class Chart {
   }
 
   clearChart () {
-    this._dataPoints = {}
+    this._data.clearChart()
 
     this.#updateChart()
   }
@@ -254,7 +204,7 @@ export class Chart {
    * @returns {Object}
    */
   getDataPoints () {
-    return this._dataPoints
+    return this._data.getDataPoints()
   }
 
   #clearCanvasContext () {
@@ -287,7 +237,7 @@ export class Chart {
   }
 
   _getMaxDataValue () {
-    return Math.max(...Object.values(this._dataPoints))
+    return this._data.getMaxDataValue()
   }
 
   _getTheme () {

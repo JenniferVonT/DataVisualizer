@@ -11,6 +11,7 @@ import { ColorTheme } from '../src/colorTheme'
 
 const colorTheme = new ColorTheme()
 
+const COLOR_ERROR_MESSAGE = 'That color is not valid, valid colors are: blue, green, red and yellow'
 const COLOR_OPTIONS = [
   { color: 'blue', hex: '#cddaff', lines: '#002184', data: '#8ca8ff', expected: 'pass' },
   { color: 'green', hex: '#ddffdb', lines: '#033700', data: '#078500', expected: 'pass' },
@@ -54,7 +55,7 @@ describe('getColorTheme', () => {
       } catch (error) {
         if (expected === 'fail') {
           expect(error).toBeInstanceOf(Error)
-          expect(error.message).toBe('That color is not valid')
+          expect(error.message).toBe(COLOR_ERROR_MESSAGE)
           expect(getColorTheme().background).not.toEqual(hex)
         } else {
           throw error
@@ -81,7 +82,7 @@ describe('getCurrentBackgroundColor', () => {
       } catch (error) {
         if (expected === 'fail') {
           expect(error).toBeInstanceOf(Error)
-          expect(error.message).toBe('That color is not valid')
+          expect(error.message).toBe(COLOR_ERROR_MESSAGE)
           expect(getCurrentBackgroundColor()).not.toEqual(hex)
         } else {
           throw error
@@ -108,7 +109,7 @@ describe('getCurrentLineColor', () => {
       } catch (error) {
         if (expected === 'fail') {
           expect(error).toBeInstanceOf(Error)
-          expect(error.message).toBe('That color is not valid')
+          expect(error.message).toBe(COLOR_ERROR_MESSAGE)
           expect(getCurrentLineColor()).not.toEqual(lines)
         } else {
           throw error
@@ -136,7 +137,7 @@ describe('getCurrentDataColors', () => {
       } catch (error) {
         if (expected === 'fail') {
           expect(error).toBeInstanceOf(Error)
-          expect(error.message).toBe('That color is not valid')
+          expect(error.message).toBe(COLOR_ERROR_MESSAGE)
           expect(() => getCurrentDataColors()[0]).not.toEqual(data)
         } else {
           throw error

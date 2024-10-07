@@ -23,7 +23,7 @@ export class ColumnChart extends Chart {
       chart.fillStyle = theme.getCurrentBackgroundColor()
       chart.fillRect(0, 0, this._canvasElement.width, this._canvasElement.height)
 
-      const amountOfColumns = Object.keys(this._dataPoints).length
+      const amountOfColumns = this._data.getAmountOfDataPoints()
       this._drawColumns(amountOfColumns)
     } catch (error) {
       this._errorHandler.consoleError(error)
@@ -38,7 +38,9 @@ export class ColumnChart extends Chart {
       const columnWidth = this._canvasElement.width / amountOfColumns
       const maxValue = this._getMaxDataValue() + 5
 
-      Object.entries(this._dataPoints).forEach(([ name, data ], index) => {
+      const dataPoints = this._data.getDataPoints()
+
+      Object.entries(dataPoints).forEach(([ name, data ], index) => {
         const columnHeight = (data / maxValue) * this._canvasElement.height
         const position = index * columnWidth
 

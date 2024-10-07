@@ -12,7 +12,7 @@ import { jest } from '@jest/globals'
 
 const chart = new Chart()
 
-const ERROR_MESSAGE_DATA_VALIDITY = '#isDataPointsValid: One or more datapoint value(s) is not the correct type, it should be a number.'
+const ERROR_MESSAGE_DATA_VALIDITY = 'One or more datapoint value(s) is not the correct type, it should be a number.'
 const DATA_TEST_CASES = [
   { data: { cats: 235 }, expected: 'pass' },
   { data: { dogs: 150 }, expected: 'pass' },
@@ -30,7 +30,7 @@ const CORRECT_DATA_TEST_CASES = [
 /*-----------Testing the setColorTheme method in the Chart class-----------*/
 const setColorTheme = chart.setColorTheme.bind(chart)
 
-const ERROR_MESSAGE_COLOR = '#isColorValidType: That color theme does not exist, choose: blue, green, red or yellow'
+const ERROR_MESSAGE_COLOR = 'That color is not valid, valid colors are: blue, green, red and yellow'
 const SET_COLOR_TEST_CASES = [
   { color: 'blue', expected: 'pass' },
   { color: 'green', expected: 'pass' },
@@ -64,18 +64,19 @@ const insertDataPoint = chart.insertDataPoint.bind(chart)
 
 describe('insertDataPoint: ', () => {
   DATA_TEST_CASES.forEach(({ data, expected }, index) => {
-    test(`Test case ${index + 1}: data = ${Object.entries(data)}`, () => {
+    test(`Test case ${index + 1}: data = ${Object.entries(data)[0]}`, () => {
       const checkOnConsole = jest.spyOn(console, 'error').mockImplementation(() => {})
       
       const [key, value] = Object.entries(data)[0]
 
       insertDataPoint(key, value)
+      const dataPoint = getDataPoints()
 
       if (expected === 'pass') {
-        expect(chart._dataPoints[key]).toBe(value)
+        expect(dataPoint[key]).toBe(value)
         expect(checkOnConsole).not.toHaveBeenCalled()
       } else {
-        expect(chart._dataPoints[key]).not.toBe(value)
+        expect(dataPoint[key]).not.toBe(value)
         expect(checkOnConsole).toHaveBeenCalledWith(`MESSAGE: ${expected}, STATUS: 400`)
       }
     })
@@ -97,11 +98,11 @@ describe('updateDataPoint: ', () => {
       if (expected === 'pass') {
         updateDataPoint(key, value, 1)
 
-        expect(chart._dataPoints[key]).toBe(1)
+        expect(chart.getDataPoints()[key]).toBe(1)
         expect(checkOnConsole).not.toHaveBeenCalled()
       } else {
-        expect(chart._dataPoints[key]).not.toBe(value)
-        expect(chart._dataPoints[key]).not.toBe(1)
+        expect(chart.getDataPoints()[key]).not.toBe(value)
+        expect(chart.getDataPoints()[key]).not.toBe(1)
         expect(checkOnConsole).toHaveBeenCalledWith(`MESSAGE: ${expected}, STATUS: 400`)
       }
     })
@@ -122,11 +123,11 @@ describe('deleteDataPoint: ', () => {
        deleteDataPoint(key, value)
 
        if (expected === 'pass') {
-        expect(key in chart._dataPoints).toBe(false)
-        expect(chart._dataPoints[key]).not.toBe(value)
+        expect(key in chart.getDataPoints()).toBe(false)
+        expect(chart.getDataPoints()[key]).not.toBe(value)
         expect(checkOnConsole).not.toHaveBeenCalled()
       } else {
-        expect(chart._dataPoints[key]).not.toBe(value)
+        expect(chart.getDataPoints()[key]).not.toBe(value)
         expect(checkOnConsole).toHaveBeenCalledWith(`MESSAGE: ${expected}, STATUS: 400`)
       }
     })
@@ -187,13 +188,13 @@ describe('clearChart: ', () => {
 
         insertDataPoint(key, value)
       
-        expect(chart._dataPoints).not.toEqual({})
+        expect(chart.getDataPoints()).not.toEqual({})
 
         clearChart()
 
-        expect(chart._dataPoints).toEqual({}) 
+        expect(chart.getDataPoints()).toEqual({}) 
       } else {
-        expect(chart._dataPoints).toEqual({})
+        expect(chart.getDataPoints()).toEqual({})
       }
     })
   })

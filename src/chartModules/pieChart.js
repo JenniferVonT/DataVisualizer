@@ -48,10 +48,11 @@ export class PieChart extends Chart {
       chart.fillStyle = theme.getCurrentBackgroundColor()
       chart.fillRect(0, 0, width, height)
 
-      const totalSumOfAllData = Object.values(this._dataPoints).reduce((acc, value) => acc + value, 0)
+      const dataPoints = this._data.getDataPoints()
+      const totalSumOfAllData = Object.values(dataPoints).reduce((acc, value) => acc + value, 0)
       let startAngle = 0
 
-      Object.entries(this._dataPoints).forEach(([ name, data ], index) => {
+      Object.entries(dataPoints).forEach(([ name, data ], index) => {
         const dataSliceAngle = (data / totalSumOfAllData) * 2 * Math.PI
         const endAngle = startAngle + dataSliceAngle
         const radius = shortSide / 2 - 30
