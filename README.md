@@ -34,8 +34,8 @@ No dependencies except default built in node functions.
     // ... and insert it into the DOM.
     document.querySelector('body').append(canvasElement)
 ```
-The code example creates:
-![columnChartExample](./img/columnChartExample.png)
+The code example creates:<br>
+![columnChartExample](./img/columnChartExample.PNG)
 
 ## Installation
 ### npm
